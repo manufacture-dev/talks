@@ -28,6 +28,6 @@ The Gas Town import rebuilds the talks with their QR codes and « open the prese
 node scripts/build.mjs
 ```
 
-The build checks every series, talk, text key and local file, then writes `dist/` (French at the root, English in `dist/en/`). The page style is in `site.css`. On every push to `main`, GitHub Actions builds `dist/` and deploys it to GitHub Pages.
+The build checks every series, talk, text key and local file, then writes `dist/` (French at the root, English in `dist/en/`). The page style is in `site.css`: the « Protocole » (Q) direction of the Manufacture design exploration, with a safety-orange ground, ink rules, §-numbered sections, Hanken Grotesk and Red Hat Mono (self-hosted in `fonts/`). On every push to `main`, GitHub Actions builds `dist/` and deploys it to GitHub Pages.
 
-Fonts: Geist and Geist Mono, SIL Open Font License 1.1.
+Fonts: Hanken Grotesk and Red Hat Mono for the page, Geist and Geist Mono in the measurement decks, all under the SIL Open Font License 1.1.

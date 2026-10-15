@@ -25,6 +25,9 @@ const UI = {
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "sources de la série ↗",
     footer: "Les decks en ligne se pilotent au clavier : → ou espace pour avancer, f pour le plein écran.",
     mb: "Mo", kb: "Ko", switchLabel: "Langue",
+    kicker: "Conférences, meetups, interventions en entreprise",
+    rules: ["Chaque talk DOIT se lire en ligne, vidéos comprises.", "Le PDF PEUT perdre les vidéos et les animations. Il DOIT le signaler.", "Chaque talk DOIT dire son audience : public ou interne."],
+    rulesLabel: "§0 — Lecture", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire",
   },
   en: {
     locale: "en-GB", dir: "en/", title: "Talks · Manufacture",
@@ -38,6 +41,9 @@ const UI = {
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "series sources ↗",
     footer: "Online decks are keyboard-driven: → or space to advance, f for full screen.",
     mb: "MB", kb: "KB", switchLabel: "Language",
+    kicker: "Conferences, meetups, in-house talks",
+    rules: ["Every talk MUST be readable online, videos included.", "The PDF MAY lose videos and animations. It MUST say so.", "Every talk MUST state its audience: public or internal."],
+    rulesLabel: "§0 — Reading", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents",
   },
 };
 const LANGS = Object.keys(UI);
@@ -86,39 +92,38 @@ function page(lang) {
     const meta = f.kind !== "web" && local ? size(localPath(f.href)) : "";
     const attrs = f.kind !== "web" && local ? " download" : "";
     const note = f.degraded ? `<span class="degraded">${esc(u.notes[f.degraded])}</span>` : f.note ? `<span class="note">${esc(u.notes[f.note])}</span>` : "";
-    const extra = f.extra ? ` <a class="extra" href="${esc(href(f.extra.href))}" download>${esc(u.notes[f.extra.label])}</a>` : "";
-    return `<li class="fmt"><a class="btn${f.kind === "web" ? " primary" : ""}" href="${esc(href(f.href))}"${attrs}>${f.kind === "web" ? "▶ " : ""}${u.kinds[f.kind]}${meta ? ` <small>${meta}</small>` : ""}</a>${note}${extra}</li>`;
+    const extra = f.extra ? `<a class="extra" href="${esc(href(f.extra.href))}" download>${esc(u.notes[f.extra.label])} ↓</a>` : "";
+    return `<li class="fmt"><a class="btn${f.kind === "web" ? " primary" : ""}" href="${esc(href(f.href))}"${attrs}><span>${u.kinds[f.kind]}</span>${meta ? `<small>${meta}</small>` : ""}<i aria-hidden="true">${f.kind === "web" ? "↗" : "↓"}</i></a>${note}${extra}</li>`;
   }
+
+  const seriesNo = new Map(data.series.map((s, i) => [s.id, i + 1]));
 
   function talkItem(t) {
     const s = series.get(t.series);
-    const chips = `<span class="chip" title="${esc(u.langTitle[t.lang])}" lang="${lang}">${esc(t.lang.toUpperCase())}</span>` +
-      (t.format ? `<span class="chip">${esc(u.format[t.format])}</span>` : "");
-    return `<li class="talk s-${esc(t.series)}" id="${esc(t.id)}">
-  <div class="when"><time datetime="${t.date}">${day(t.date)}</time></div>
-  <div class="dot" aria-hidden="true"></div>
+    const [y, m, d] = t.date.split("-");
+    return `<li class="talk" id="${esc(t.id)}">
+  <div class="when"><time datetime="${t.date}"><b>${d}</b><span>${esc(date(t.date, { month: "short" }).replace(".", ""))} ${y}</span></time></div>
   <article>
-    <p class="eyebrow">${esc(s.title[lang])} ${chips}</p>
+    <p class="tags"><span>§1.${seriesNo.get(t.series)} ${esc(s.title[lang])}</span><span class="chip" title="${esc(u.langTitle[t.lang])}">${esc(t.lang.toUpperCase())}</span>${t.format ? `<span class="chip">${esc(u.format[t.format])}</span>` : ""}</p>
     <h3>${esc(t.event)} <span class="badge">${esc(u.audience[t.audience])}</span></h3>
     <p class="title" lang="${t.lang}">${esc(t.title)}</p>
     <p class="meta">${esc(date(t.date, { dateStyle: "full" }))} · ${esc(t.speakers.join(" & "))}</p>
-    <ul class="formats">${t.formats.map(formatLink).join("")}</ul>
   </article>
+  <ul class="formats" aria-label="${esc(u.formats)}">${t.formats.map(formatLink).join("")}</ul>
 </li>`;
   }
 
   const years = [...new Set(talks.map((t) => t.date.slice(0, 4)))];
-  const timeline = years.map((y) => `<section class="year"><h2>${y}</h2><ul class="timeline">
-${talks.filter((t) => t.date.startsWith(y)).map(talkItem).join("\n")}
-</ul></section>`).join("\n");
+  const timeline = years.map((y) => `<li class="year"><h3>${y}</h3><span>${talks.filter((t) => t.date.startsWith(y)).length} ${u.talks}</span></li>
+${talks.filter((t) => t.date.startsWith(y)).map(talkItem).join("\n")}`).join("\n");
 
   const seriesCards = data.series.map((s) => {
     const mine = talks.filter((t) => t.series === s.id);
-    return `<li class="series s-${esc(s.id)}">
-  <p class="eyebrow">${esc(u.count(mine.length))}</p>
+    return `<li class="series">
+  <p class="label">§1.${seriesNo.get(s.id)} · ${esc(u.count(mine.length))}</p>
   <h3>${esc(s.title[lang])}</h3>
   <p>${esc(s.summary[lang])}</p>
-  <p class="events">${mine.map((t) => `<a href="#${esc(t.id)}">${esc(t.event)}</a>`).join(" · ")}</p>
+  <p class="events">${mine.map((t) => `<a href="#${esc(t.id)}">${esc(t.event)}</a>`).join("")}</p>
   ${s.source ? `<p class="src"><a href="${esc(s.source)}">${esc(u.source)}</a></p>` : ""}
 </li>`;
   }).join("\n");
@@ -127,6 +132,7 @@ ${talks.filter((t) => t.date.startsWith(y)).map(talkItem).join("\n")}
     ? `<span aria-current="page">${l.toUpperCase()}</span>`
     : `<a href="${up}${UI[l].dir || "./"}" hreflang="${l}" lang="${l}">${l.toUpperCase()}</a>`).join("");
   const alternates = LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${SITE}${UI[l].dir}">`).join("\n");
+  const rules = u.rules.map((r) => `<li>${esc(r).replace(/\b(DOIT|PEUT|MUST|MAY)\b/g, "<b>$1</b>")}</li>`).join("");
 
   return `<!doctype html>
 <html lang="${lang}">
@@ -135,6 +141,7 @@ ${talks.filter((t) => t.date.startsWith(y)).map(talkItem).join("\n")}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(u.title)}</title>
 <meta name="description" content="${esc(u.description)}">
+<meta name="theme-color" content="#FF5A1F">
 <link rel="canonical" href="${SITE}${u.dir}">
 ${alternates}
 <link rel="alternate" hreflang="x-default" href="${SITE}">
@@ -142,20 +149,35 @@ ${alternates}
 <link rel="stylesheet" href="${up}site.css">
 </head>
 <body>
-<main>
-<header>
-  <div class="top"><p class="eyebrow">manufacture · talks</p><nav class="lang" aria-label="${esc(u.switchLabel)}">${switcher}</nav></div>
-  <h1>Talks</h1>
-  <p class="lead">${esc(u.lead)}</p>
-  <div class="rule"></div>
+<div class="sheet">
+<header class="bar">
+  <a class="brand" href="https://manufacture.dev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 21 7v10l-9 5-9-5V7z M12 2v10m0 0 9-5m-9 5-9-5m9 5v10"/></svg>Manufacture</a>
+  <nav class="toc" aria-label="${esc(u.nav)}"><a href="#series">§1 ${esc(u.seriesLabel)}</a><a href="#timeline">§2 ${esc(u.timelineLabel)}</a></nav>
+  <p class="ref">MFG-TALKS/1.0</p>
+  <nav class="lang" aria-label="${esc(u.switchLabel)}">${switcher}</nav>
 </header>
-<ul class="seriesl">
+<section class="hero">
+  <div class="headline">
+    <p class="kicker">${esc(u.kicker)}</p>
+    <h1>Talks.</h1>
+  </div>
+  <aside class="rules"><p class="label">${esc(u.rulesLabel)}</p><ol>${rules}</ol></aside>
+  <p class="lead">${esc(u.lead)}</p>
+</section>
+<section id="series" aria-labelledby="series-h">
+  <h2 id="series-h" class="section"><span>§1</span>${esc(u.seriesLabel)}</h2>
+  <ul class="seriesl">
 ${seriesCards}
-</ul>
+  </ul>
+</section>
+<section id="timeline" aria-labelledby="timeline-h">
+  <h2 id="timeline-h" class="section"><span>§2</span>${esc(u.timelineLabel)}</h2>
+  <ol class="timeline">
 ${timeline}
-<footer>${esc(u.footer)}<br>
-<a href="https://manufacture.dev">manufacture.dev</a> · <a href="https://github.com/manufacture-dev/talks">sources</a></footer>
-</main>
+  </ol>
+</section>
+<footer class="foot"><p>${esc(u.footer)}</p><p><a href="https://manufacture.dev">manufacture.dev</a> <a href="https://github.com/manufacture-dev/talks">github.com/manufacture-dev/talks</a></p></footer>
+</div>
 </body>
 </html>
 `;
