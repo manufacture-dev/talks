@@ -75,20 +75,21 @@ h1{font:900 clamp(96px,19vw,248px)/.86 var(--sans);letter-spacing:-.055em;margin
 .talk>*{padding:20px 22px 24px}
 .talk>*+*{border-left:var(--rule)}
 .talk:target{background:var(--peach)}
-.when{text-decoration:none}
-.when:hover b{text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:6px}
-.when time{display:flex;flex-direction:column;gap:4px}
+.when time{display:flex;align-items:flex-start;gap:10px}
+.when span{writing-mode:vertical-rl;transform:rotate(180deg);font-weight:600;font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding-top:2px}
 .when b{font:900 64px/.9 var(--sans);letter-spacing:-.04em}
-.when span{text-transform:uppercase}
 article{display:flex;flex-direction:column;gap:8px}
 .tags{display:flex;flex-wrap:wrap;gap:8px;align-items:center;text-transform:uppercase}
 .chip{border:1px solid var(--ink);padding:1px 6px;font-weight:600}
+article h3 a{text-decoration:none}
+article h3 a:hover{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:6px}
 article h3{font:900 clamp(28px,3.4vw,42px)/1.02 var(--sans);letter-spacing:-.03em;text-wrap:balance}
 .badge{display:inline-block;vertical-align:.4em;font:600 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border:1.5px solid var(--ink);border-radius:999px;margin-left:6px}
 .title{font-size:19px;font-weight:600}
 .meta{font-size:15px}
 .share{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:6px}
-.share button{font:600 13px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--ink);background:none;border:1px solid var(--ink);padding:9px 12px;min-height:36px;cursor:pointer}
+.share button{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;color:var(--ink);background:none;border:1px solid var(--ink);padding:0;cursor:pointer}
+.share svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:square}
 .share button:hover{background:var(--ink);color:var(--orange)}
 .share output{font:500 13px var(--mono);overflow-wrap:anywhere}
 .formats{display:flex;flex-direction:column;gap:12px}
@@ -124,7 +125,6 @@ article h3{font:900 clamp(28px,3.4vw,42px)/1.02 var(--sans);letter-spacing:-.03e
   .talk{grid-template-columns:1fr}
   .talk>*+*{border-left:0;border-top:var(--rule)}
   .formats{grid-column:auto}
-  .when time{flex-direction:row;align-items:baseline;gap:12px}
   .when b{font-size:40px}
   .talk>*{padding:16px}
 }

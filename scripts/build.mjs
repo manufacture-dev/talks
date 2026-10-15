@@ -98,13 +98,13 @@ function page(lang) {
     const s = series.get(t.series);
     const [y, m, d] = t.date.split("-");
     return `<li class="talk" id="${esc(t.id)}">
-  <a class="when" href="#${esc(t.id)}" title="${esc(t.event)}"><time datetime="${t.date}"><b>${d}</b><span>${esc(date(t.date, { month: "short" }).replace(".", ""))} ${y}</span></time></a>
+  <div class="when"><time datetime="${t.date}"><span>${esc(date(t.date, { month: "long" }))}</span><b>${d}</b></time></div>
   <article>
     <p class="tags"><span>§1.${seriesNo.get(t.series)} ${esc(s.title[lang])}</span><span class="chip" title="${esc(u.langTitle[t.lang])}">${esc(t.lang.toUpperCase())}</span>${t.format ? `<span class="chip">${esc(u.format[t.format])}</span>` : ""}</p>
-    <h3>${esc(t.event)} <span class="badge">${esc(u.audience[t.audience])}</span></h3>
+    <h3><a href="#${esc(t.id)}">${esc(t.event)}</a> <span class="badge">${esc(u.audience[t.audience])}</span></h3>
     <p class="title" lang="${t.lang}">${esc(t.title)}</p>
     <p class="meta">${esc(date(t.date, { dateStyle: "full" }))} · ${esc(t.speakers.join(" & "))}</p>
-    <p class="share"><button type="button" data-link="${SITE}${u.dir}#${esc(t.id)}">${esc(u.share)} <span aria-hidden="true">⧉</span></button><output aria-live="polite"></output></p>
+    <p class="share"><button type="button" data-link="${SITE}${u.dir}#${esc(t.id)}" aria-label="${esc(u.share)} : ${esc(t.event)}" title="${esc(u.share)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3m-5 5 5-5 5 5M5 11v10h14V11"/></svg></button><output aria-live="polite"></output></p>
   </article>
   <ul class="formats" aria-label="${esc(u.formats)}">${t.formats.map(formatLink).join("")}</ul>
 </li>`;
