@@ -3,10 +3,10 @@
    heavy grotesk for statements, mono for every label. One deliberate look, no dark variant. */
 :root{
   --orange:#FF5A1F;   /* ground */
-  --ink:#140F0C;      /* text, rules, panels */
-  --peach:#FFE6DA;    /* quiet fill on the ground */
+  --ink:#120B06;      /* text, rules, panels */
+  --peach:#FFE9DE;    /* quiet fill on the ground */
   --paper:#FFFFFF;    /* text on ink */
-  --rule:1.5px solid var(--ink);
+  --rule:1px solid var(--ink);
   --sans:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'Red Hat Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
   color-scheme:light;
@@ -27,7 +27,8 @@ ul,ol{list-style:none;padding:0}
 .bar>*{display:flex;align-items:center;gap:18px;padding:14px 20px;min-height:56px}
 .bar>*+*{border-left:var(--rule)}
 .brand{font:700 18px/1 var(--sans);letter-spacing:-.01em;text-decoration:none;gap:10px}
-.brand svg{width:24px;height:24px;fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round}
+.brand{font-weight:900}
+.brand img{height:26px;width:auto}
 .toc a{text-decoration:none}
 .toc a:hover{text-decoration:underline;text-underline-offset:4px}
 .ref{background:var(--ink);color:var(--orange);text-transform:uppercase}
@@ -36,16 +37,18 @@ ul,ol{list-style:none;padding:0}
 .lang span{background:var(--ink);color:var(--paper)}
 .lang a:hover{background:var(--peach)}
 
-/* hero: the statement, the reading rules, the lead */
+/* hero: the statement, the latest talk, the lead */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,380px);grid-template-rows:auto auto;border-bottom:var(--rule)}
 .headline{grid-row:1 / span 2;padding:24px 28px 32px;display:flex;flex-direction:column;gap:clamp(24px,6vw,72px);border-right:var(--rule)}
 .kicker{text-transform:uppercase}
-h1{font:800 clamp(96px,19vw,248px)/.86 var(--sans);letter-spacing:-.055em;margin-left:-.04em}
-.rules{background:var(--ink);color:var(--paper);padding:20px 22px 26px;display:flex;flex-direction:column;gap:14px}
-.rules .label{color:var(--orange);text-transform:uppercase}
-.rules ol{display:flex;flex-direction:column;gap:10px;font:400 14px/1.55 var(--mono)}
-.rules b{color:var(--orange);font-weight:600}
-.lead{padding:20px 22px 24px;font-size:17px;font-weight:500;border-top:var(--rule);align-self:end}
+h1{font:900 clamp(96px,19vw,248px)/.86 var(--sans);letter-spacing:-.055em;margin-left:-.04em}
+.latest{background:var(--ink);color:var(--peach);padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px}
+.latest .label{color:var(--orange);text-transform:uppercase}
+.latest .ev{font:900 30px/1.02 var(--sans);letter-spacing:-.03em;color:var(--paper);margin-top:6px}
+.latest .tt{font-size:15px}
+.latest .go{margin-top:auto;display:flex;justify-content:space-between;align-items:center;min-height:46px;padding:0 16px;background:var(--orange);color:var(--ink);font:900 15px var(--sans);text-decoration:none}
+.latest .go:hover{background:var(--peach)}
+.lead{padding:20px 22px 24px;font-size:17px;font-weight:500;border-top:var(--rule);display:flex;align-items:flex-end}
 
 /* section headings: a numbered strip */
 .section{display:flex;align-items:center;gap:16px;padding:12px 20px;border-bottom:var(--rule);text-transform:uppercase;font-weight:600;font-size:14px}
@@ -53,11 +56,11 @@ h1{font:800 clamp(96px,19vw,248px)/.86 var(--sans);letter-spacing:-.055em;margin
 
 /* §1 series: one cell each, like the deliverable strip of the direction */
 .seriesl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));border-bottom:var(--rule)}
-.series{display:flex;flex-direction:column;gap:12px;padding:20px 22px 24px;box-shadow:inset -1.5px 0 0 var(--ink)}
+.series{display:flex;flex-direction:column;gap:12px;padding:20px 22px 24px;box-shadow:inset -1px 0 0 var(--ink)}
 .series:last-child{box-shadow:none}
 .series:nth-child(even){background:var(--peach)}
 .series .label{text-transform:uppercase}
-.series h3{font:800 clamp(28px,3.6vw,40px)/1 var(--sans);letter-spacing:-.03em;text-wrap:balance}
+.series h3{font:900 clamp(28px,3.6vw,40px)/1 var(--sans);letter-spacing:-.03em;text-wrap:balance}
 .series p{max-width:52ch}
 .events{display:flex;flex-wrap:wrap;gap:8px}
 .events a{font:500 13px/1 var(--mono);text-decoration:none;border:1px solid var(--ink);padding:7px 10px}
@@ -66,19 +69,19 @@ h1{font:800 clamp(96px,19vw,248px)/.86 var(--sans);letter-spacing:-.055em;margin
 
 /* §2 timeline: one row per talk — date | talk | formats */
 .year{display:flex;justify-content:space-between;align-items:baseline;background:var(--ink);color:var(--orange);padding:10px 20px}
-.year h3{font:800 28px/1 var(--sans);letter-spacing:-.02em}
+.year h3{font:900 28px/1 var(--sans);letter-spacing:-.02em}
 .talk{display:grid;grid-template-columns:132px minmax(0,1fr) minmax(250px,320px);border-bottom:var(--rule);scroll-margin-top:16px}
 .talk:last-child{border-bottom:0}
 .talk>*{padding:20px 22px 24px}
 .talk>*+*{border-left:var(--rule)}
 .talk:target{background:var(--peach)}
 .when time{display:flex;flex-direction:column;gap:4px}
-.when b{font:800 64px/.9 var(--sans);letter-spacing:-.04em}
+.when b{font:900 64px/.9 var(--sans);letter-spacing:-.04em}
 .when span{text-transform:uppercase}
 article{display:flex;flex-direction:column;gap:8px}
 .tags{display:flex;flex-wrap:wrap;gap:8px;align-items:center;text-transform:uppercase}
 .chip{border:1px solid var(--ink);padding:1px 6px;font-weight:600}
-article h3{font:800 clamp(28px,3.4vw,42px)/1.02 var(--sans);letter-spacing:-.03em;text-wrap:balance}
+article h3{font:900 clamp(28px,3.4vw,42px)/1.02 var(--sans);letter-spacing:-.03em;text-wrap:balance}
 .badge{display:inline-block;vertical-align:.4em;font:600 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border:1.5px solid var(--ink);border-radius:999px;margin-left:6px}
 .title{font-size:19px;font-weight:600}
 .meta{font-size:15px}
@@ -111,7 +114,7 @@ article h3{font:800 clamp(28px,3.4vw,42px)/1.02 var(--sans);letter-spacing:-.03e
   .hero{grid-template-columns:1fr}
   .headline{grid-row:auto;border-right:0;border-bottom:var(--rule)}
   .lead{border-top:var(--rule)}
-  .series{box-shadow:inset 0 -1.5px 0 var(--ink)}
+  .series{box-shadow:inset 0 -1px 0 var(--ink)}
   .talk{grid-template-columns:1fr}
   .talk>*+*{border-left:0;border-top:var(--rule)}
   .formats{grid-column:auto}

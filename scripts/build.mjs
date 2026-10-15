@@ -26,8 +26,7 @@ const UI = {
     footer: "Les decks en ligne se pilotent au clavier : → ou espace pour avancer, f pour le plein écran.",
     mb: "Mo", kb: "Ko", switchLabel: "Langue",
     kicker: "Conférences, meetups, interventions en entreprise",
-    rules: ["Chaque talk DOIT se lire en ligne, vidéos comprises.", "Le PDF PEUT perdre les vidéos et les animations. Il DOIT le signaler.", "Chaque talk DOIT dire son audience : public ou interne."],
-    rulesLabel: "§0 — Lecture", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire",
+    latestLabel: "Dernier talk", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire",
   },
   en: {
     locale: "en-GB", dir: "en/", title: "Talks · Manufacture",
@@ -42,8 +41,7 @@ const UI = {
     footer: "Online decks are keyboard-driven: → or space to advance, f for full screen.",
     mb: "MB", kb: "KB", switchLabel: "Language",
     kicker: "Conferences, meetups, in-house talks",
-    rules: ["Every talk MUST be readable online, videos included.", "The PDF MAY lose videos and animations. It MUST say so.", "Every talk MUST state its audience: public or internal."],
-    rulesLabel: "§0 — Reading", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents",
+    latestLabel: "Latest talk", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents",
   },
 };
 const LANGS = Object.keys(UI);
@@ -132,7 +130,8 @@ ${talks.filter((t) => t.date.startsWith(y)).map(talkItem).join("\n")}`).join("\n
     ? `<span aria-current="page">${l.toUpperCase()}</span>`
     : `<a href="${up}${UI[l].dir || "./"}" hreflang="${l}" lang="${l}">${l.toUpperCase()}</a>`).join("");
   const alternates = LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${SITE}${UI[l].dir}">`).join("\n");
-  const rules = u.rules.map((r) => `<li>${esc(r).replace(/\b(DOIT|PEUT|MUST|MAY)\b/g, "<b>$1</b>")}</li>`).join("");
+  const last = talks[0];
+  const lastWeb = last.formats.find((f) => f.kind === "web");
 
   return `<!doctype html>
 <html lang="${lang}">
@@ -142,6 +141,7 @@ ${talks.filter((t) => t.date.startsWith(y)).map(talkItem).join("\n")}`).join("\n
 <title>${esc(u.title)}</title>
 <meta name="description" content="${esc(u.description)}">
 <meta name="theme-color" content="#FF5A1F">
+<link rel="icon" href="${up}mark.svg" type="image/svg+xml">
 <link rel="canonical" href="${SITE}${u.dir}">
 ${alternates}
 <link rel="alternate" hreflang="x-default" href="${SITE}">
@@ -151,7 +151,7 @@ ${alternates}
 <body>
 <div class="sheet">
 <header class="bar">
-  <a class="brand" href="https://manufacture.dev"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 21 7v10l-9 5-9-5V7z M12 2v10m0 0 9-5m-9 5-9-5m9 5v10"/></svg>Manufacture</a>
+  <a class="brand" href="https://manufacture.dev"><img src="${up}mark.svg" alt="" width="27" height="26">Manufacture</a>
   <nav class="toc" aria-label="${esc(u.nav)}"><a href="#series">§1 ${esc(u.seriesLabel)}</a><a href="#timeline">§2 ${esc(u.timelineLabel)}</a></nav>
   <p class="ref">MFG-TALKS/1.0</p>
   <nav class="lang" aria-label="${esc(u.switchLabel)}">${switcher}</nav>
@@ -161,7 +161,12 @@ ${alternates}
     <p class="kicker">${esc(u.kicker)}</p>
     <h1>Talks.</h1>
   </div>
-  <aside class="rules"><p class="label">${esc(u.rulesLabel)}</p><ol>${rules}</ol></aside>
+  <aside class="latest" aria-label="${esc(u.latestLabel)}">
+    <p class="label">${esc(u.latestLabel)} · ${esc(date(last.date, { day: "numeric", month: "long", year: "numeric" }))}</p>
+    <p class="ev">${esc(last.event)}</p>
+    <p class="tt" lang="${last.lang}">${esc(last.title)}</p>
+    ${lastWeb ? `<a class="go" href="${esc(href(lastWeb.href))}">${esc(u.kinds.web)} <span aria-hidden="true">↘</span></a>` : ""}
+  </aside>
   <p class="lead">${esc(u.lead)}</p>
 </section>
 <section id="series" aria-labelledby="series-h">
@@ -189,7 +194,7 @@ for (const lang of LANGS) {
   mkdirSync(join(DIST, UI[lang].dir), { recursive: true });
   writeFileSync(join(DIST, UI[lang].dir, "index.html"), page(lang));
 }
-cpSync(join(ROOT, "site.css"), join(DIST, "site.css"));
+for (const f of ["site.css", "mark.svg"]) cpSync(join(ROOT, f), join(DIST, f));
 for (const dir of ["fonts", "decks", "downloads"]) if (existsSync(join(ROOT, dir))) cpSync(join(ROOT, dir), join(DIST, dir), { recursive: true });
 writeFileSync(join(DIST, ".nojekyll"), "");
 console.log(`dist/: ${talks.length} talks, ${data.series.length} series, ${LANGS.join(" + ")}`);
