@@ -23,7 +23,6 @@ const UI = {
     langTitle: { fr: "Talk en français", en: "Talk en anglais" },
     notes: { "no-video": "Sans vidéos ni animations", "pptx-clips": "Vidéos intégrées, notes de l'orateur. Installer les polices Geist avant d'ouvrir.", fonts: "polices Geist (zip)" },
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "sources de la série ↗",
-    footer: "Les decks en ligne se pilotent au clavier : → ou espace pour avancer, f pour le plein écran.",
     mb: "Mo", kb: "Ko", switchLabel: "Langue",
     kicker: "Conférences, meetups, interventions en entreprise",
     latestLabel: "Dernier talk", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire",
@@ -38,7 +37,6 @@ const UI = {
     langTitle: { fr: "Talk in French", en: "Talk in English" },
     notes: { "no-video": "No videos or animations", "pptx-clips": "Embedded videos, speaker notes. Install the Geist fonts before opening.", fonts: "Geist fonts (zip)" },
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "series sources ↗",
-    footer: "Online decks are keyboard-driven: → or space to advance, f for full screen.",
     mb: "MB", kb: "KB", switchLabel: "Language",
     kicker: "Conferences, meetups, in-house talks",
     latestLabel: "Latest talk", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents",
@@ -181,7 +179,7 @@ ${seriesCards}
 ${timeline}
   </ol>
 </section>
-<footer class="foot"><p>${esc(u.footer)}</p><p><a href="https://manufacture.dev">manufacture.dev</a> <a href="https://github.com/manufacture-dev/talks">github.com/manufacture-dev/talks</a></p></footer>
+<footer class="foot"><p><a href="https://manufacture.dev">manufacture.dev</a></p></footer>
 </div>
 </body>
 </html>
