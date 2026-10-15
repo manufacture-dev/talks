@@ -6,7 +6,7 @@ The site is an umbrella: each talk lists its formats (web deck, PDF, PowerPoint)
 
 ## Add a talk
 
-1. Add the talk to `talks.json`: `id`, `series`, `date` (YYYY-MM-DD), `event`, `lang`, `speakers` and `formats`.
+1. Add the talk to `talks.json`: `id`, `series`, `date` (YYYY-MM-DD), `event`, `audience` (`public` or `interne`, shown as a badge next to the event), `lang`, `speakers` and `formats`.
 2. Each format has a `kind` (`web`, `pdf` or `pptx`) and an `href`: a path in this repository or an absolute URL.
 3. A format that loses something compared to the live deck gets a `degraded` text, shown as a warning (for example `"Sans vidéos ni animations"` for a PDF of a deck with clips). Other remarks go in `note`.
 4. A new series goes in `series` with an `id`, a `short` name, a `title` and a `summary`.

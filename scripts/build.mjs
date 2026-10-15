@@ -24,6 +24,7 @@ const size = (h) => { const mb = statSync(join(ROOT, h)).size / 1e6; return mb >
 const errors = [];
 for (const t of data.talks) {
   if (!series.has(t.series)) errors.push(`${t.id}: unknown series ${t.series}`);
+  if (t.audience && !["public", "interne"].includes(t.audience)) errors.push(`${t.id}: audience must be public or interne`);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(t.date)) errors.push(`${t.id}: bad date ${t.date}`);
   for (const f of t.formats) {
     if (!KINDS[f.kind]) errors.push(`${t.id}: unknown format ${f.kind}`);
@@ -52,7 +53,7 @@ function talkItem(t) {
   <div class="dot" aria-hidden="true"></div>
   <article>
     <p class="eyebrow">${esc(s.short || s.id)} ${chips}</p>
-    <h3>${esc(t.event)}</h3>
+    <h3>${esc(t.event)}${t.audience ? ` <span class="badge">${esc(t.audience)}</span>` : ""}</h3>
     <p class="title">${esc(t.title || s.title)}</p>
     <p class="meta">${esc(full(t.date))} · ${esc(t.speakers.join(" & "))}</p>
     <ul class="formats">${t.formats.map(formatLink).join("")}</ul>
@@ -117,6 +118,7 @@ h1{font:600 clamp(56px,10vw,104px)/1 var(--sans);letter-spacing:-.03em;margin:20
 .s-gastown .eyebrow{color:var(--mute)}
 .chip{font:500 12px var(--mono);letter-spacing:.08em;color:var(--text);border:1px solid var(--line2);border-radius:6px;padding:1px 7px}
 article h3{font:600 clamp(24px,3.4vw,30px)/1.2 var(--sans);letter-spacing:-.015em;margin:8px 0 4px}
+.badge{display:inline-block;vertical-align:middle;margin-left:10px;padding:2px 11px;border:1px solid var(--line2);border-radius:999px;font:500 13px/1.5 var(--mono);letter-spacing:.06em;color:var(--soft);position:relative;top:-3px}
 .title{color:var(--soft);font-size:18px}
 .meta{color:var(--mute);font-size:15px;margin-top:4px}
 .formats{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:12px 16px;margin-top:18px;align-items:flex-start}
