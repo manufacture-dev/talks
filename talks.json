@@ -112,7 +112,8 @@
         },
         {
           "kind": "pptx",
-          "href": "downloads/gastown-agile-en-seine-2026.fr.pptx"
+          "href": "downloads/gastown-agile-en-seine-2026.fr.pptx",
+          "degraded": "images-only"
         }
       ]
     },
@@ -139,7 +140,8 @@
         },
         {
           "kind": "pptx",
-          "href": "downloads/gastown-sacem-matinale-dsi.fr.pptx"
+          "href": "downloads/gastown-sacem-matinale-dsi.fr.pptx",
+          "degraded": "images-only"
         }
       ]
     },
@@ -166,7 +168,8 @@
         },
         {
           "kind": "pptx",
-          "href": "downloads/gastown-dev-with-ai-live-4.fr.pptx"
+          "href": "downloads/gastown-dev-with-ai-live-4.fr.pptx",
+          "degraded": "images-only"
         }
       ]
     },
@@ -193,7 +196,8 @@
         },
         {
           "kind": "pptx",
-          "href": "downloads/gastown-dilitrust-techday.en.pptx"
+          "href": "downloads/gastown-dilitrust-techday.en.pptx",
+          "degraded": "images-only"
         }
       ]
     }
