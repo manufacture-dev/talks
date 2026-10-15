@@ -2,7 +2,10 @@
   "series": [
     {
       "id": "agentic-workflow-evaluation",
-      "title": { "fr": "Agentic workflow evaluation", "en": "Agentic workflow evaluation" },
+      "title": {
+        "fr": "Agentic workflow evaluation",
+        "en": "Agentic workflow evaluation"
+      },
       "summary": {
         "fr": "Mesurer l'effet d'un skill ou d'un workflow agentique sur un use case réel, et éprouver l'évaluateur avant de le croire.",
         "en": "Measuring what a skill or an agentic workflow really changes on a real use case, and testing the evaluator before trusting it."
@@ -10,12 +13,14 @@
     },
     {
       "id": "gastown",
-      "title": { "fr": "Gas Town", "en": "Gas Town" },
+      "title": {
+        "fr": "Gas Town",
+        "en": "Gas Town"
+      },
       "summary": {
         "fr": "Organiser le delivery logiciel AI-native avec Gas Town, en direct sur Agreement Hub.",
         "en": "Organizing AI-native software delivery with Gas Town, live on Agreement Hub."
-      },
-      "source": "https://github.com/manufacture-dev/gastown-presentations"
+      }
     }
   ],
   "talks": [
@@ -27,11 +32,28 @@
       "audience": "internal",
       "lang": "fr",
       "title": "Nos workflows agentiques s'améliorent-ils vraiment ?",
-      "speakers": ["Jean-Louis Rigau"],
+      "speakers": [
+        "Jean-Louis Rigau"
+      ],
       "formats": [
-        { "kind": "web", "href": "decks/agentic-workflow-evaluation/bnp-coe-devops-2026.html" },
-        { "kind": "pdf", "href": "downloads/agentic-workflow-evaluation-bnp-coe-devops-2026.fr.pdf", "degraded": "no-video" },
-        { "kind": "pptx", "href": "downloads/agentic-workflow-evaluation-bnp-coe-devops-2026.fr.pptx", "note": "pptx-clips", "extra": { "label": "fonts", "href": "downloads/polices-geist.zip" } }
+        {
+          "kind": "web",
+          "href": "decks/agentic-workflow-evaluation/bnp-coe-devops-2026.html"
+        },
+        {
+          "kind": "pdf",
+          "href": "downloads/agentic-workflow-evaluation-bnp-coe-devops-2026.fr.pdf",
+          "degraded": "no-video"
+        },
+        {
+          "kind": "pptx",
+          "href": "downloads/agentic-workflow-evaluation-bnp-coe-devops-2026.fr.pptx",
+          "note": "pptx-clips",
+          "extra": {
+            "label": "fonts",
+            "href": "downloads/polices-geist.zip"
+          }
+        }
       ]
     },
     {
@@ -42,11 +64,28 @@
       "audience": "public",
       "lang": "fr",
       "title": "Nos workflows agentiques s'améliorent-ils vraiment ?",
-      "speakers": ["Jean-Louis Rigau"],
+      "speakers": [
+        "Jean-Louis Rigau"
+      ],
       "formats": [
-        { "kind": "web", "href": "decks/agentic-workflow-evaluation/dev-with-ai-2026.html" },
-        { "kind": "pdf", "href": "downloads/agentic-workflow-evaluation-dev-with-ai-2026.fr.pdf", "degraded": "no-video" },
-        { "kind": "pptx", "href": "downloads/agentic-workflow-evaluation-dev-with-ai-2026.fr.pptx", "note": "pptx-clips", "extra": { "label": "fonts", "href": "downloads/polices-geist.zip" } }
+        {
+          "kind": "web",
+          "href": "decks/agentic-workflow-evaluation/dev-with-ai-2026.html"
+        },
+        {
+          "kind": "pdf",
+          "href": "downloads/agentic-workflow-evaluation-dev-with-ai-2026.fr.pdf",
+          "degraded": "no-video"
+        },
+        {
+          "kind": "pptx",
+          "href": "downloads/agentic-workflow-evaluation-dev-with-ai-2026.fr.pptx",
+          "note": "pptx-clips",
+          "extra": {
+            "label": "fonts",
+            "href": "downloads/polices-geist.zip"
+          }
+        }
       ]
     },
     {
@@ -58,11 +97,23 @@
       "lang": "fr",
       "format": "workshop",
       "title": "Organiser le delivery logiciel AI-native avec Gas Town",
-      "speakers": ["Jean-Louis Rigau", "Emmanuel Sciara"],
+      "speakers": [
+        "Jean-Louis Rigau",
+        "Emmanuel Sciara"
+      ],
       "formats": [
-        { "kind": "web", "href": "decks/gastown/agile-en-seine-2026/#/1" },
-        { "kind": "pdf", "href": "downloads/gastown-agile-en-seine-2026.fr.pdf" },
-        { "kind": "pptx", "href": "downloads/gastown-agile-en-seine-2026.fr.pptx" }
+        {
+          "kind": "web",
+          "href": "decks/gastown/agile-en-seine-2026/#/1"
+        },
+        {
+          "kind": "pdf",
+          "href": "downloads/gastown-agile-en-seine-2026.fr.pdf"
+        },
+        {
+          "kind": "pptx",
+          "href": "downloads/gastown-agile-en-seine-2026.fr.pptx"
+        }
       ]
     },
     {
@@ -73,11 +124,23 @@
       "audience": "internal",
       "lang": "fr",
       "title": "Organiser le delivery logiciel AI-native avec Gas Town",
-      "speakers": ["Jean-Louis Rigau", "Emmanuel Sciara"],
+      "speakers": [
+        "Jean-Louis Rigau",
+        "Emmanuel Sciara"
+      ],
       "formats": [
-        { "kind": "web", "href": "decks/gastown/sacem-matinale-dsi/#/1" },
-        { "kind": "pdf", "href": "downloads/gastown-sacem-matinale-dsi.fr.pdf" },
-        { "kind": "pptx", "href": "downloads/gastown-sacem-matinale-dsi.fr.pptx" }
+        {
+          "kind": "web",
+          "href": "decks/gastown/sacem-matinale-dsi/#/1"
+        },
+        {
+          "kind": "pdf",
+          "href": "downloads/gastown-sacem-matinale-dsi.fr.pdf"
+        },
+        {
+          "kind": "pptx",
+          "href": "downloads/gastown-sacem-matinale-dsi.fr.pptx"
+        }
       ]
     },
     {
@@ -88,11 +151,23 @@
       "audience": "public",
       "lang": "fr",
       "title": "Organiser le delivery logiciel AI-native avec Gas Town",
-      "speakers": ["Jean-Louis Rigau", "Emmanuel Sciara"],
+      "speakers": [
+        "Jean-Louis Rigau",
+        "Emmanuel Sciara"
+      ],
       "formats": [
-        { "kind": "web", "href": "decks/gastown/dev-with-ai-live-4/#/1" },
-        { "kind": "pdf", "href": "downloads/gastown-dev-with-ai-live-4.fr.pdf" },
-        { "kind": "pptx", "href": "downloads/gastown-dev-with-ai-live-4.fr.pptx" }
+        {
+          "kind": "web",
+          "href": "decks/gastown/dev-with-ai-live-4/#/1"
+        },
+        {
+          "kind": "pdf",
+          "href": "downloads/gastown-dev-with-ai-live-4.fr.pdf"
+        },
+        {
+          "kind": "pptx",
+          "href": "downloads/gastown-dev-with-ai-live-4.fr.pptx"
+        }
       ]
     },
     {
@@ -103,11 +178,23 @@
       "audience": "internal",
       "lang": "en",
       "title": "Organizing AI-native software delivery with Gas Town",
-      "speakers": ["Jean-Louis Rigau", "Emmanuel Sciara"],
+      "speakers": [
+        "Jean-Louis Rigau",
+        "Emmanuel Sciara"
+      ],
       "formats": [
-        { "kind": "web", "href": "decks/gastown/dilitrust-techday/#/1" },
-        { "kind": "pdf", "href": "downloads/gastown-dilitrust-techday.en.pdf" },
-        { "kind": "pptx", "href": "downloads/gastown-dilitrust-techday.en.pptx" }
+        {
+          "kind": "web",
+          "href": "decks/gastown/dilitrust-techday/#/1"
+        },
+        {
+          "kind": "pdf",
+          "href": "downloads/gastown-dilitrust-techday.en.pdf"
+        },
+        {
+          "kind": "pptx",
+          "href": "downloads/gastown-dilitrust-techday.en.pptx"
+        }
       ]
     }
   ]
