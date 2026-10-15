@@ -1,0 +1,181 @@
+{
+  "series": [
+    {
+      "id": "mesure",
+      "short": "Mesure",
+      "title": "Nos workflows agentiques s'améliorent-ils vraiment ?",
+      "summary": "Mesurer l'effet d'un skill ou d'un workflow agentique sur un use case réel, et éprouver l'évaluateur avant de le croire."
+    },
+    {
+      "id": "gastown",
+      "short": "Gas Town",
+      "title": "Organiser le delivery logiciel AI-native avec Gas Town",
+      "summary": "Gas Town en direct sur Agreement Hub : orchestrer des agents de code comme une équipe.",
+      "source": "https://github.com/manufacture-dev/gastown-presentations"
+    }
+  ],
+  "talks": [
+    {
+      "id": "mesure-bnp-coe-devops-2026",
+      "series": "mesure",
+      "date": "2026-10-13",
+      "event": "BNP Paribas COE Devops",
+      "lang": "fr",
+      "speakers": [
+        "Jean-Louis Rigau"
+      ],
+      "formats": [
+        {
+          "kind": "web",
+          "href": "decks/mesure/bnp-coe-devops-2026.html"
+        },
+        {
+          "kind": "pdf",
+          "href": "downloads/mesure-bnp-coe-devops-2026.fr.pdf",
+          "degraded": "Sans vidéos ni animations"
+        },
+        {
+          "kind": "pptx",
+          "href": "downloads/mesure-bnp-coe-devops-2026.fr.pptx",
+          "note": "Vidéos intégrées, notes de l'orateur. Installer les polices Geist avant d'ouvrir.",
+          "extra": {
+            "label": "polices Geist (zip)",
+            "href": "downloads/polices-geist.zip"
+          }
+        }
+      ]
+    },
+    {
+      "id": "mesure-dev-with-ai-2026",
+      "series": "mesure",
+      "date": "2026-10-12",
+      "event": "Dev With AI 2026",
+      "lang": "fr",
+      "speakers": [
+        "Jean-Louis Rigau"
+      ],
+      "formats": [
+        {
+          "kind": "web",
+          "href": "decks/mesure/dev-with-ai-2026.html"
+        },
+        {
+          "kind": "pdf",
+          "href": "downloads/mesure-dev-with-ai-2026.fr.pdf",
+          "degraded": "Sans vidéos ni animations"
+        },
+        {
+          "kind": "pptx",
+          "href": "downloads/mesure-dev-with-ai-2026.fr.pptx",
+          "note": "Vidéos intégrées, notes de l'orateur. Installer les polices Geist avant d'ouvrir.",
+          "extra": {
+            "label": "polices Geist (zip)",
+            "href": "downloads/polices-geist.zip"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gastown-agile-en-seine-2026",
+      "series": "gastown",
+      "date": "2026-09-22",
+      "event": "Agile En Seine & IA 2026",
+      "lang": "fr",
+      "format": "atelier",
+      "speakers": [
+        "Jean-Louis Rigau",
+        "Emmanuel Sciara"
+      ],
+      "formats": [
+        {
+          "kind": "web",
+          "href": "https://manufacture.dev/gastown-presentations/agile-en-seine-2026/#/1"
+        },
+        {
+          "kind": "pdf",
+          "href": "https://manufacture.dev/gastown-presentations/downloads/gastown-agile-en-seine-2026.fr.pdf"
+        },
+        {
+          "kind": "pptx",
+          "href": "https://manufacture.dev/gastown-presentations/downloads/gastown-agile-en-seine-2026.fr.pptx"
+        }
+      ]
+    },
+    {
+      "id": "gastown-sacem-matinale-dsi",
+      "series": "gastown",
+      "date": "2026-07-10",
+      "event": "SACEM · Matinale DSI",
+      "lang": "fr",
+      "speakers": [
+        "Jean-Louis Rigau",
+        "Emmanuel Sciara"
+      ],
+      "formats": [
+        {
+          "kind": "web",
+          "href": "https://manufacture.dev/gastown-presentations/sacem-matinale-dsi/#/1"
+        },
+        {
+          "kind": "pdf",
+          "href": "https://manufacture.dev/gastown-presentations/downloads/gastown-sacem-matinale-dsi.fr.pdf"
+        },
+        {
+          "kind": "pptx",
+          "href": "https://manufacture.dev/gastown-presentations/downloads/gastown-sacem-matinale-dsi.fr.pptx"
+        }
+      ]
+    },
+    {
+      "id": "gastown-dev-with-ai-live-4",
+      "series": "gastown",
+      "date": "2026-06-12",
+      "event": "Dev With AI Live #4",
+      "lang": "fr",
+      "speakers": [
+        "Jean-Louis Rigau",
+        "Emmanuel Sciara"
+      ],
+      "formats": [
+        {
+          "kind": "web",
+          "href": "https://manufacture.dev/gastown-presentations/dev-with-ai-live-4/#/1"
+        },
+        {
+          "kind": "pdf",
+          "href": "https://manufacture.dev/gastown-presentations/downloads/gastown-dev-with-ai-live-4.fr.pdf"
+        },
+        {
+          "kind": "pptx",
+          "href": "https://manufacture.dev/gastown-presentations/downloads/gastown-dev-with-ai-live-4.fr.pptx"
+        }
+      ]
+    },
+    {
+      "id": "gastown-dilitrust-techday",
+      "series": "gastown",
+      "date": "2026-05-21",
+      "event": "DiliTrust TechDay",
+      "lang": "en",
+      "title": "Organizing AI-native software delivery with Gas Town",
+      "speakers": [
+        "Jean-Louis Rigau",
+        "Emmanuel Sciara"
+      ],
+      "formats": [
+        {
+          "kind": "web",
+          "href": "https://manufacture.dev/gastown-presentations/dilitrust-techday/#/1"
+        },
+        {
+          "kind": "pdf",
+          "href": "https://manufacture.dev/gastown-presentations/downloads/gastown-dilitrust-techday.en.pdf"
+        },
+        {
+          "kind": "pptx",
+          "href": "https://manufacture.dev/gastown-presentations/downloads/gastown-dilitrust-techday.en.pptx"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="polices-geist">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/downloads/polices-geist.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
