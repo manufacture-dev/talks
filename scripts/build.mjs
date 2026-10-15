@@ -98,7 +98,7 @@ function page(lang) {
     const s = series.get(t.series);
     const [y, m, d] = t.date.split("-");
     return `<li class="talk" id="${esc(t.id)}">
-  <div class="when"><time datetime="${t.date}"><span>${esc(date(t.date, { month: "long" }))}</span><b>${d}</b></time></div>
+  <div class="when"><time datetime="${t.date}"><b>${d}</b></time></div>
   <article>
     <p class="tags"><span>§1.${seriesNo.get(t.series)} ${esc(s.title[lang])}</span><span class="chip" title="${esc(u.langTitle[t.lang])}">${esc(t.lang.toUpperCase())}</span>${t.format ? `<span class="chip">${esc(u.format[t.format])}</span>` : ""}</p>
     <h3><a href="#${esc(t.id)}">${esc(t.event)}</a> <span class="badge">${esc(u.audience[t.audience])}</span></h3>
@@ -110,9 +110,16 @@ function page(lang) {
 </li>`;
   }
 
+  // year strip, then one group per month: the month is written once, left of its talks
   const years = [...new Set(talks.map((t) => t.date.slice(0, 4)))];
-  const timeline = years.map((y) => `<li class="year"><h3>${y}</h3><span>${talks.filter((t) => t.date.startsWith(y)).length} ${u.talks}</span></li>
-${talks.filter((t) => t.date.startsWith(y)).map(talkItem).join("\n")}`).join("\n");
+  const timeline = years.map((y) => {
+    const ofYear = talks.filter((t) => t.date.startsWith(y));
+    const months = [...new Set(ofYear.map((t) => t.date.slice(0, 7)))];
+    return `<li class="year"><h3>${y}</h3><span>${ofYear.length} ${u.talks}</span></li>
+${months.map((m) => `<li class="month"><h4>${esc(date(`${m}-01`, { month: "long" }))}</h4><ol>
+${ofYear.filter((t) => t.date.startsWith(m)).map(talkItem).join("\n")}
+</ol></li>`).join("\n")}`;
+  }).join("\n");
 
   const seriesCards = data.series.map((s) => {
     const mine = talks.filter((t) => t.series === s.id);
