@@ -99,7 +99,7 @@ article h3{font:900 clamp(28px,3.4vw,42px)/1.02 var(--sans);letter-spacing:-.03e
 .degraded::before{content:"⚠ "}
 .extra{font-size:12px;font-weight:600;text-underline-offset:3px}
 
-.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;background:var(--ink);color:var(--paper);padding:18px 22px}
+.foot{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:12px 24px;background:var(--ink);color:var(--paper);padding:18px 22px}
 .foot p:last-child{display:flex;flex-wrap:wrap;gap:20px}
 .foot a{color:var(--orange);text-underline-offset:4px}
 
