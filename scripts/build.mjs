@@ -32,7 +32,7 @@ const UI = {
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "sources de la série ↗",
     mb: "Mo", kb: "Ko", switchLabel: "Langue",
     kicker: "Conférences, meetups, interventions en entreprise",
-    share: "Partager", copied: "Lien copié", copyFallback: "Copiez ce lien", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire", prev: "Série précédente", next: "Série suivante",
+    share: "Partager", copied: "Lien copié", copyFallback: "Copiez ce lien", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire", ogLocale: "fr_FR", formatsLine: "En ligne, PDF et PowerPoint.", opening: "Ouverture du talk…", prev: "Série précédente", next: "Série suivante",
   },
   en: {
     locale: "en-GB", dir: "en/", title: "Talks · Manufacture",
@@ -46,7 +46,7 @@ const UI = {
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "series sources ↗",
     mb: "MB", kb: "KB", switchLabel: "Language",
     kicker: "Conferences, meetups, in-house talks",
-    share: "Share", copied: "Link copied", copyFallback: "Copy this link", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents", prev: "Previous series", next: "Next series",
+    share: "Share", copied: "Link copied", copyFallback: "Copy this link", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents", ogLocale: "en_GB", formatsLine: "Online, PDF and PowerPoint.", opening: "Opening the talk…", prev: "Previous series", next: "Next series",
   },
 };
 const LANGS = Object.keys(UI);
@@ -111,7 +111,7 @@ function page(lang) {
     <h3><a href="#${esc(t.id)}">${esc(t.event)}</a> <span class="badge">${esc(u.audience[t.audience])}</span></h3>
     <p class="title" lang="${t.lang}">${esc(t.title)}</p>
     <p class="meta">${esc(date(t.date, { dateStyle: "full" }))} · ${esc(t.speakers.join(" & "))}</p>
-    <p class="share"><button type="button" data-link="${SITE}${u.dir}#${esc(t.id)}" aria-label="${esc(u.share)} : ${esc(t.event)}" title="${esc(u.share)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3m-5 5 5-5 5 5M5 11v10h14V11"/></svg></button><output aria-live="polite"></output></p>
+    <p class="share"><button type="button" data-link="${SITE}${u.dir}t/${esc(t.id)}/" aria-label="${esc(u.share)} : ${esc(t.event)}" title="${esc(u.share)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V3m-5 5 5-5 5 5M5 11v10h14V11"/></svg></button><output aria-live="polite"></output></p>
   </article>
   <ul class="formats" aria-label="${esc(u.formats)}">${t.formats.map(formatLink).join("")}</ul>
 </li>`;
@@ -154,6 +154,8 @@ ${ofYear.filter((t) => t.date.startsWith(m)).map(talkItem).join("\n")}
 <meta name="theme-color" content="#FF5A1F">
 <link rel="icon" href="${up}mark.svg" type="image/svg+xml">
 <link rel="canonical" href="${SITE}${u.dir}">
+${preview({ title: u.title, description: u.description, url: `${SITE}${u.dir}`, image: `${SITE}og/${lang}/index.png`, locale: u.ogLocale })}
+<link rel="apple-touch-icon" href="${up}og/apple-touch-icon.png">
 ${alternates}
 <link rel="alternate" hreflang="x-default" href="${SITE}">
 <link rel="stylesheet" href="${up}fonts/fonts.css?${STAMP}">
@@ -219,13 +221,60 @@ document.addEventListener("click", async (e) => {
 `;
 }
 
+
+// link previews (Open Graph, read by messaging apps and social networks)
+function preview({ title, description, url, image, locale }) {
+  return [
+    `<meta property="og:type" content="website">`,
+    `<meta property="og:site_name" content="Manufacture">`,
+    `<meta property="og:locale" content="${locale}">`,
+    `<meta property="og:title" content="${esc(title)}">`,
+    `<meta property="og:description" content="${esc(description)}">`,
+    `<meta property="og:url" content="${url}">`,
+    `<meta property="og:image" content="${image}">`,
+    `<meta property="og:image:width" content="1200">`,
+    `<meta property="og:image:height" content="630">`,
+    `<meta name="twitter:card" content="summary_large_image">`,
+  ].join("\n");
+}
+
+// one small page per talk: its own preview, then straight to the talk in the timeline
+function sharePage(lang, t) {
+  const u = UI[lang], s = series.get(t.series);
+  const when = new Intl.DateTimeFormat(u.locale, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(new Date(`${t.date}T00:00:00Z`));
+  const target = `../../#${t.id}`;
+  return `<!doctype html>
+<html lang="${lang}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(t.event)} · ${esc(s.title[lang])}</title>
+<meta name="description" content="${esc(t.title)}">
+${preview({ title: `${t.event} · ${t.title}`, description: `${when} · ${t.speakers.join(" & ")} · ${s.title[lang]}. ${u.formatsLine}`, url: `${SITE}${u.dir}t/${t.id}/`, image: `${SITE}og/${lang}/${t.id}.png`, locale: u.ogLocale })}
+<link rel="canonical" href="${SITE}${u.dir}t/${t.id}/">
+<link rel="icon" href="../../${u.dir ? "../" : ""}mark.svg" type="image/svg+xml">
+<meta http-equiv="refresh" content="0; url=${target}">
+<script>location.replace(${JSON.stringify(target)})</script>
+</head>
+<body style="background:#FF5A1F;color:#120B06;font:16px system-ui,sans-serif;padding:24px"><a href="${target}">${esc(u.opening)}</a></body>
+</html>
+`;
+}
+
+for (const lang of LANGS) for (const f of ["index.png", ...data.talks.map((t) => `${t.id}.png`)])
+  if (!existsSync(join(ROOT, "og", lang, f))) { console.error(`missing og/${lang}/${f}: run node scripts/og.mjs`); process.exit(1); }
+
 rmSync(DIST, { recursive: true, force: true });
 mkdirSync(DIST, { recursive: true });
 for (const lang of LANGS) {
   mkdirSync(join(DIST, UI[lang].dir), { recursive: true });
   writeFileSync(join(DIST, UI[lang].dir, "index.html"), page(lang));
+  for (const t of data.talks) {
+    mkdirSync(join(DIST, UI[lang].dir, "t", t.id), { recursive: true });
+    writeFileSync(join(DIST, UI[lang].dir, "t", t.id, "index.html"), sharePage(lang, t));
+  }
 }
 for (const f of ["site.css", "mark.svg"]) cpSync(join(ROOT, f), join(DIST, f));
-for (const dir of ["fonts", "decks", "downloads"]) if (existsSync(join(ROOT, dir))) cpSync(join(ROOT, dir), join(DIST, dir), { recursive: true });
+for (const dir of ["fonts", "decks", "downloads", "og"]) if (existsSync(join(ROOT, dir))) cpSync(join(ROOT, dir), join(DIST, dir), { recursive: true });
 writeFileSync(join(DIST, ".nojekyll"), "");
 console.log(`dist/: ${talks.length} talks, ${data.series.length} series, ${LANGS.join(" + ")}`);

@@ -35,6 +35,10 @@ Organizing AI-native software delivery with Gas Town, live on Agreement Hub.
 3. A format that loses something compared to the live deck gets a `degraded` key, shown as a warning. Other remarks go in `note`. Both refer to texts in `scripts/build.mjs` (`UI.<lang>.notes`), so every page language has its own wording.
 4. A new series goes in `series`, with `title` and `summary` in each language.
 
+## Link previews
+
+Each page and each talk has its own preview image (Open Graph, 1200×630) in `og/`, made in the page style by `node scripts/og.mjs` (local Chrome). Run it after changing `talks.json`, then commit `og/`. The build stops if an image is missing. The Share button copies the talk's preview page (`/talks/t/<talk id>/`), which opens the talk in the timeline.
+
 ## Build
 
 ```
