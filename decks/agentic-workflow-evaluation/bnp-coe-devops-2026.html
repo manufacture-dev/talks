@@ -1,9 +1,10 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Nos workflows agentiques s&#x27;améliorent-ils vraiment ? — BNP Paribas COE Devops</title>
 <link rel="stylesheet" href="fonts/fonts.css">
 <style>
 *{margin:0;box-sizing:border-box}
 html,body{height:100%;background:#000;overflow:hidden}
+body{position:fixed;inset:0}
 #stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center}
 .slide{position:absolute;inset:0;width:1920px;height:1080px;display:none !important;overflow:hidden}
 .slide.on{display:flex !important}
@@ -13,6 +14,10 @@ video.clip{cursor:pointer;background:#0A0B0D}
 #hud{position:fixed;right:12px;bottom:8px;font:12px monospace;color:#555}
 #fs{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);font:600 18px Geist,sans-serif;color:#0A0B0D;background:#FF7A4D;border:0;border-radius:999px;padding:12px 26px;cursor:pointer;transition:opacity .4s}
 :fullscreen #fs{opacity:0;pointer-events:none}
+html{touch-action:manipulation}
+.nav{position:fixed;top:50%;transform:translateY(-50%);width:44px;height:64px;border:0;border-radius:8px;background:rgba(255,122,77,.85);color:#0A0B0D;font:600 28px/1 Geist,sans-serif;cursor:pointer;display:none}
+#prev{left:8px}#next{right:8px}
+@media (pointer:coarse){.nav{display:block}}
 </style></head><body>
 <div id="stage">
 <section class="slide" data-id="cover" id="cover" data-transition="fade" style="background:#0A0B0D;color:#ECEDEE;font-family:'Geist', Arial, sans-serif;padding:112px 128px;display:flex;flex-direction:column;gap:32px">
@@ -327,6 +332,8 @@ video.clip{cursor:pointer;background:#0A0B0D}
 </div>
 <div id="hud"></div>
 <button id="fs" type="button">Plein écran (f)</button>
+<button class="nav" id="prev" type="button" aria-label="Slide précédente">‹</button>
+<button class="nav" id="next" type="button" aria-label="Slide suivante">›</button>
 <script>
 const slides=[...document.querySelectorAll('.slide')];
 let i=0, step=0;
@@ -350,9 +357,21 @@ addEventListener('keydown',e=>{
   else if(e.key==='f')fullscreen();
 });
 document.querySelectorAll('video.clip').forEach(v=>v.addEventListener('click',e=>{e.stopPropagation();v.paused?v.play():v.pause()}));
-function fullscreen(){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+function fullscreen(){if(!document.fullscreenEnabled)return;document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{})}
+if(!document.fullscreenEnabled)document.getElementById('fs').hidden=true;   // iPhone Safari has no fullscreen for pages
 document.getElementById('fs').addEventListener('click',e=>{e.stopPropagation();fullscreen()});
 addEventListener('dblclick',fullscreen);
+// touch: arrows on the sides, a swipe, or a tap (left third goes back, the rest goes forward)
+document.getElementById('prev').addEventListener('click',e=>{e.stopPropagation();prev()});
+document.getElementById('next').addEventListener('click',e=>{e.stopPropagation();next()});
+let touch=null;
+addEventListener('touchstart',e=>{if(e.touches.length===1)touch={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});
+addEventListener('touchend',e=>{
+  if(!touch||e.target.closest('button,video'))return touch=null;
+  const t=e.changedTouches[0],dx=t.clientX-touch.x,dy=t.clientY-touch.y;touch=null;
+  if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy))dx<0?next():prev();
+  else if(Math.abs(dx)<10&&Math.abs(dy)<10)t.clientX<innerWidth/3?prev():next();
+},{passive:true});
 addEventListener('resize',fit);fit();
 show(Math.max(0,(parseInt(location.hash.slice(1))||1)-1));
 if(location.search.includes('selftest'))(async()=>{
