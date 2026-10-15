@@ -25,7 +25,7 @@ const UI = {
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "sources de la série ↗",
     mb: "Mo", kb: "Ko", switchLabel: "Langue",
     kicker: "Conférences, meetups, interventions en entreprise",
-    latestLabel: "Dernier talk", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire",
+    latestLabel: "Dernier talk", share: "Partager", copied: "Lien copié", copyFallback: "Copiez ce lien", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire",
   },
   en: {
     locale: "en-GB", dir: "en/", title: "Talks · Manufacture",
@@ -39,7 +39,7 @@ const UI = {
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "series sources ↗",
     mb: "MB", kb: "KB", switchLabel: "Language",
     kicker: "Conferences, meetups, in-house talks",
-    latestLabel: "Latest talk", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents",
+    latestLabel: "Latest talk", share: "Share", copied: "Link copied", copyFallback: "Copy this link", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents",
   },
 };
 const LANGS = Object.keys(UI);
@@ -98,12 +98,13 @@ function page(lang) {
     const s = series.get(t.series);
     const [y, m, d] = t.date.split("-");
     return `<li class="talk" id="${esc(t.id)}">
-  <div class="when"><time datetime="${t.date}"><b>${d}</b><span>${esc(date(t.date, { month: "short" }).replace(".", ""))} ${y}</span></time></div>
+  <a class="when" href="#${esc(t.id)}" title="${esc(t.event)}"><time datetime="${t.date}"><b>${d}</b><span>${esc(date(t.date, { month: "short" }).replace(".", ""))} ${y}</span></time></a>
   <article>
     <p class="tags"><span>§1.${seriesNo.get(t.series)} ${esc(s.title[lang])}</span><span class="chip" title="${esc(u.langTitle[t.lang])}">${esc(t.lang.toUpperCase())}</span>${t.format ? `<span class="chip">${esc(u.format[t.format])}</span>` : ""}</p>
     <h3>${esc(t.event)} <span class="badge">${esc(u.audience[t.audience])}</span></h3>
     <p class="title" lang="${t.lang}">${esc(t.title)}</p>
     <p class="meta">${esc(date(t.date, { dateStyle: "full" }))} · ${esc(t.speakers.join(" & "))}</p>
+    <p class="share"><button type="button" data-link="${SITE}${u.dir}#${esc(t.id)}">${esc(u.share)} <span aria-hidden="true">⧉</span></button><output aria-live="polite"></output></p>
   </article>
   <ul class="formats" aria-label="${esc(u.formats)}">${t.formats.map(formatLink).join("")}</ul>
 </li>`;
@@ -181,6 +182,16 @@ ${timeline}
 </section>
 <footer class="foot"><p><a href="https://manufacture.dev">manufacture.dev</a></p></footer>
 </div>
+<script>
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest("button[data-link]");
+  if (!b) return;
+  const out = b.nextElementSibling, link = b.dataset.link;
+  try { await navigator.clipboard.writeText(link); out.textContent = ${JSON.stringify(u.copied)}; }
+  catch { out.textContent = ${JSON.stringify(u.copyFallback)} + " : " + link; }
+  clearTimeout(b._t); b._t = setTimeout(() => { out.textContent = ""; }, 4000);
+});
+</script>
 </body>
 </html>
 `;

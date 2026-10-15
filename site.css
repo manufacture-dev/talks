@@ -75,6 +75,8 @@ h1{font:900 clamp(96px,19vw,248px)/.86 var(--sans);letter-spacing:-.055em;margin
 .talk>*{padding:20px 22px 24px}
 .talk>*+*{border-left:var(--rule)}
 .talk:target{background:var(--peach)}
+.when{text-decoration:none}
+.when:hover b{text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:6px}
 .when time{display:flex;flex-direction:column;gap:4px}
 .when b{font:900 64px/.9 var(--sans);letter-spacing:-.04em}
 .when span{text-transform:uppercase}
@@ -85,6 +87,10 @@ article h3{font:900 clamp(28px,3.4vw,42px)/1.02 var(--sans);letter-spacing:-.03e
 .badge{display:inline-block;vertical-align:.4em;font:600 12px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border:1.5px solid var(--ink);border-radius:999px;margin-left:6px}
 .title{font-size:19px;font-weight:600}
 .meta{font-size:15px}
+.share{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:6px}
+.share button{font:600 13px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--ink);background:none;border:1px solid var(--ink);padding:9px 12px;min-height:36px;cursor:pointer}
+.share button:hover{background:var(--ink);color:var(--orange)}
+.share output{font:500 13px var(--mono);overflow-wrap:anywhere}
 .formats{display:flex;flex-direction:column;gap:12px}
 .fmt{display:flex;flex-direction:column;gap:6px}
 .btn{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:10px;min-height:46px;padding:0 14px;border:1.5px solid var(--ink);text-decoration:none;font-weight:600;font-size:14px;text-transform:uppercase}
