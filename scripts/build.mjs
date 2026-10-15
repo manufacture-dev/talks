@@ -116,9 +116,9 @@ function page(lang) {
     const ofYear = talks.filter((t) => t.date.startsWith(y));
     const months = [...new Set(ofYear.map((t) => t.date.slice(0, 7)))];
     return `<li class="year"><h3>${y}</h3><span>${ofYear.length} ${u.talks}</span></li>
-${months.map((m) => `<li class="month"><h4>${esc(date(`${m}-01`, { month: "long" }))}</h4><ol>
+${months.map((m) => { const n = ofYear.filter((t) => t.date.startsWith(m)).length; return `<li class="month"><div class="mh"><h4>${esc(date(`${m}-01`, { month: "long" }))}</h4><span>${esc(u.count(n))}</span></div><ol>
 ${ofYear.filter((t) => t.date.startsWith(m)).map(talkItem).join("\n")}
-</ol></li>`).join("\n")}`;
+</ol></li>`; }).join("\n")}`;
   }).join("\n");
 
   const seriesCards = data.series.map((s) => {
