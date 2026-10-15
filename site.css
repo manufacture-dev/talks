@@ -29,9 +29,9 @@ ul,ol{list-style:none;padding:0}
 .brand{font:900 18px/1 var(--sans);letter-spacing:-.01em;gap:0;padding-right:20px !important}
 .brand a{position:relative;z-index:1;text-decoration:none;padding-left:10px}
 .brand a:hover{text-decoration:underline;text-underline-offset:4px}
-/* the animated mark: the study's wire fills about a fifth of its frame, so a 128px frame shows a ~26px logo */
+/* the animated mark: the study's wire is 30% of its frame height, so an 86px frame draws it at the old mark's 26px */
 .brand{padding-left:8px !important}
-.brand .mark{display:block;width:128px;height:128px;margin:-50px -46px -50px -44px;border:0;background:transparent;color-scheme:normal}
+.brand .mark{display:block;width:86px;height:86px;margin:-26px -30px -26px -30px;border:0;background:transparent;color-scheme:normal}
 .toc a{text-decoration:none}
 .toc a:hover{text-decoration:underline;text-underline-offset:4px}
 .lang{gap:0;padding:0}
