@@ -1,0 +1,21 @@
+Dans agreement_hub, lis docs/use-cases/README.md et inspecte l’app.
+Choisis exactement 2 des 5 use cases listés, aucun hors liste.
+Pour chacun : tranche minimale fidèle au besoin, testable dans
+l’UI, indépendante ; ajuste choix et scope pour <15 min après GO.
+Plan : numéros et noms exacts, couvert/exclu, résultats,
+dépendances, fichiers partagés et checks.
+Use cases IA (#1/#2) éligibles : simule le LLM sans service externe.
+Attends mon GO. Décide seul des choix courants ; demande
+pour une extension, un service externe ou un risque de perte.
+
+Après GO, coordonne sans coder : beads produit, convoy,
+Polecats distincts et worktrees isolés. Un seul responsable
+par fichier partagé. Intègre via Witness et Refinery,
+sans push direct sur main ni artefacts runtime committés.
+
+À 8 min, réduis le scope si nécessaire ; à 12 min, stabilise.
+Toutes les 3 min ou si blocage : résultat, état Gas Town,
+blocages et arbitrages. Poursuis le plan sans nouvelle validation.
+Vérifie puis clos les beads intégrés. Bilan : livré, démontrable,
+preuves, branche et SHA, checks, différé et risques.
+Ensuite, arrête le monitoring.

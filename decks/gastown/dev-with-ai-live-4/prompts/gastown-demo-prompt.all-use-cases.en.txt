@@ -1,0 +1,88 @@
+I want to implement new features in the agreement_hub application. The shared context and use cases are in the docs folder.
+
+First, do not dispatch implementation work yet.
+
+Read the docs and inspect the app. Make the reasonable product, architecture, scope, sequencing, implementation, naming, file ownership, and merge-order decisions yourself using existing project patterns.
+
+Then present me with:
+- the use cases found;
+- the decisions made and why;
+- the dependency graph, with an ASCII diagram;
+- the proposed beads;
+- the proposed product convoys and the exact product beads each convoy tracks;
+- the expected execution and merge order;
+- the main merge/conflict risks;
+- the mock/offline demo mode plan so the final demo works without LLM access;
+- the verification plan.
+
+If any dependent work starts before foundation is merged, document the stub-compatible strategy and the exact files/types that dependent agents must not duplicate.
+
+Do not ask me to validate routine design, UI, implementation, architecture, naming, file structure, library, sequencing, or ownership choices. Ask only for demo-scope, external dependency, data-loss, major cost/time, or unrecoverable conflict decisions.
+
+Delivery rules:
+- The goal is verified code on the product repo's canonical delivery branch, usually origin/main, not activity or many branches.
+- The delivery branch is the source of truth for shipped work.
+- A task is done only when merged on the delivery branch and verified; a branch, MR, merge wisp, agent report, or closed bead alone is not done.
+- Foundation/blocking work must merge before dependent feature work.
+- Convoys are delivery ledgers for product beads, not implementation tasks and not generic workflow containers.
+- Each product convoy must track only concrete product beads that can be closed by verification on the delivery branch.
+- Do not put patrols, workflow wisps, merge artifacts, notifications, mayor handoffs, sentinels, or system cleanup items inside product convoys.
+- Do not assign an aggregate convoy directly to a polecat or implementation agent.
+- Dispatch only atomic, actionable beads with one owner, clear dependencies, expected files, and acceptance criteria.
+- Avoid parallel edits to shared integration files; assign them to one owner or a dedicated integration bead.
+- If a merge is rejected or conflicts, preserve the branch, keep/reopen the source bead, mark the related convoy item blocked, rebase/retry against current delivery branch if safe, and do not count it complete.
+- If task, convoy, branch, or agent status disagrees with the delivery branch state, the delivery branch wins and the coordinator must correct the task/convoy status.
+
+Convoy/bead tracking rules:
+- Keep an explicit mapping for every product convoy: convoy id/name -> tracked product beads -> bead status -> merge artifact or delivered commit -> verification evidence on the delivery branch.
+- Use active convoy views to find ongoing work, but use all/history views before final recap so completed convoys are not mistaken for missing convoys.
+- Before reporting a product convoy as complete, reconcile its tracked beads against bead status, delivery branch commits, merge queue state, and remaining branch, polecat, or wisp artifacts.
+- A product convoy is complete only when every tracked product bead is closed, verified on the delivery branch, and has no active merge or branch blocker.
+- If product beads are complete but workflow wisps, patrol beads, stale branches, or other orchestration residue remain, report those separately as workflow residue rather than unfinished product work.
+
+After presenting the plan, wait for my explicit GO.
+
+Once I say GO, execute autonomously:
+- create beads and product convoys according to the dependency graph;
+- dispatch according to the dependency graph;
+- let Witness and Refinery operate normally;
+- submit work for merge only after the assigned implementation is finished, rebased on current delivery branch, and local verification passes;
+- merge only when the integration/review step accepts it, conflicts are resolved, and the result is verified on the delivery branch;
+- do not close source beads/tasks on submission; close them only after merge and verification on the delivery branch;
+- give me a short state-of-your-eyes update every minute.
+
+Each update must summarize:
+- shipped state on the delivery branch;
+- product convoys, their tracked beads, and their real completion state;
+- active, blocked, or pending product beads;
+- active polecats and assigned bead;
+- submitted but not merged work;
+- merge queue;
+- conflicts/blockers/recovery;
+- workflow residue separately from product work;
+- any decision needed from me.
+
+If repeated conflicts, wedged agents, stale merge loops, or high context/usage happen, stop new dispatch and switch to stabilization: recover useful work, reconcile beads/convoys against the delivery branch, verify, and report truthfully.
+
+Before claiming completion, verify the delivery branch directly:
+- expected use cases are present;
+- backend/frontend checks pass;
+- rejected work is resolved or explicitly deferred;
+- every product bead is either verified on the delivery branch or explicitly still pending;
+- every product convoy is complete only through its tracked product beads;
+- workflow residue is named separately and not counted as unfinished product delivery.
+
+Stop the feedback loop only when delivery is complete or explicitly frozen.
+
+Final recap must include:
+- final delivery branch commit;
+- delivered product scope;
+- product convoys and tracked beads;
+- bead owner;
+- branch or merge artifact;
+- merged-on-delivery-branch status;
+- verification evidence;
+- shipped state;
+- pending product work, if any;
+- workflow residue, if any;
+- remaining risks.

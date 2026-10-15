@@ -1,0 +1,17 @@
+/agent-browser Open http://localhost:5173 in visible
+(headed) mode, in a dedicated session. Keep the same
+window and tab.
+
+Inspect the app, then create 12 realistic fictional
+contracts through the UI. Vary types, companies,
+statuses and clauses to cover different scenarios.
+Use natural business titles, with no prefix or client name.
+Keep data consistent.
+
+Respect the app’s fields and validation rules.
+Do not modify code or existing contracts;
+no SQL or direct API calls.
+
+Verify persistence after reload. If interrupted,
+resume without duplicates until 12 contracts are created.
+Summarize the contracts created and any blockers.

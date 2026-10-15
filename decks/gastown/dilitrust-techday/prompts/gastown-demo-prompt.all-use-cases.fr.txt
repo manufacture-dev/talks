@@ -1,0 +1,88 @@
+Je veux implémenter de nouvelles fonctionnalités dans l'application agreement_hub. Le contexte partagé et les use cases sont dans le dossier docs.
+
+D'abord, ne lance pas encore de travail d'implémentation.
+
+Lis la documentation et inspecte l'application. Prends toi-même les décisions raisonnables de produit, architecture, scope, séquencement, implémentation, nommage, ownership des fichiers et ordre de merge, en t'appuyant sur les patterns existants du projet.
+
+Présente-moi ensuite:
+- les use cases trouvés;
+- les décisions prises et pourquoi;
+- le graphe de dépendances, avec un diagramme ASCII;
+- les beads proposés;
+- les convoys produit proposés et les beads produit exacts que chaque convoy suit;
+- l'ordre d'exécution et de merge attendu;
+- les principaux risques de merge/conflit;
+- le plan de mode mock/offline pour que la démo finale fonctionne sans accès LLM;
+- le plan de vérification.
+
+Si du travail dépendant démarre avant que les fondations soient mergées, documente la stratégie compatible avec des stubs et les fichiers/types exacts que les agents dépendants ne doivent pas dupliquer.
+
+Ne me demande pas de valider les choix routiniers de design, UI, implémentation, architecture, nommage, structure de fichiers, librairie, séquencement ou ownership. Demande seulement pour les décisions de scope de démo, dépendance externe, perte de données, coût/durée majeur, ou conflit non récupérable.
+
+Règles de delivery:
+- L'objectif est du code vérifié sur la branche canonique de delivery du repo produit, généralement origin/main, pas de l'activité ou beaucoup de branches.
+- La branche de delivery est la source de vérité du travail livré.
+- Une tâche n'est terminée que lorsqu'elle est mergée sur la branche de delivery et vérifiée; une branche, MR, merge wisp, rapport d'agent ou bead fermé seul ne suffit pas.
+- Le travail de fondation/bloquant doit merger avant le travail feature dépendant.
+- Les convoys sont des registres de delivery pour des beads produit, pas des tâches d'implémentation ni des conteneurs génériques de workflow.
+- Chaque convoy produit doit suivre uniquement des beads produit concrets qui peuvent être fermés par vérification sur la branche de delivery.
+- Ne mets pas les patrols, workflow wisps, artifacts de merge, notifications, handoffs du Mayor, sentinels ou éléments de cleanup système dans les convoys produit.
+- N'assigne pas directement un convoy agrégé à un polecat ou à un agent d'implémentation.
+- Dispatche uniquement des beads atomiques, actionnables, avec un owner, des dépendances claires, des fichiers attendus et des critères d'acceptance.
+- Évite les éditions parallèles sur les fichiers d'intégration partagés; assigne-les à un seul owner ou à un bead d'intégration dédié.
+- Si un merge est rejeté ou en conflit, préserve la branche, garde/rouvre le bead source, marque l'item de convoy associé comme bloqué, rebase/retry contre la branche de delivery courante si c'est sûr, et ne le compte pas comme terminé.
+- Si le statut task, convoy, branche ou agent est en désaccord avec l'état de la branche de delivery, la branche de delivery gagne et le coordinateur doit corriger le statut task/convoy.
+
+Règles de suivi convoy/bead:
+- Maintiens un mapping explicite pour chaque convoy produit: id/nom du convoy -> beads produit suivis -> statut du bead -> artifact de merge ou commit livré -> preuve de vérification sur la branche de delivery.
+- Utilise les vues de convoys actifs pour trouver le travail en cours, mais utilise les vues all/history avant le recap final pour éviter de confondre les convoys terminés avec des convoys manquants.
+- Avant de déclarer un convoy produit comme terminé, réconcilie ses beads suivis avec le statut des beads, les commits de la branche de delivery, l'état de la merge queue et les branches, polecats ou wisps restants.
+- Un convoy produit n'est terminé que lorsque chaque bead produit suivi est fermé, vérifié sur la branche de delivery, et sans bloqueur de merge ou de branche actif.
+- Si les beads produit sont terminés mais que des workflow wisps, patrol beads, branches stale ou autres résidus d'orchestration restent présents, reporte-les séparément comme résidus de workflow plutôt que comme travail produit inachevé.
+
+Après avoir présenté le plan, attends mon GO explicite.
+
+Quand je dis GO, exécute en autonomie:
+- crée les beads et les convoys produit selon le graphe de dépendances;
+- dispatche selon le graphe de dépendances;
+- laisse Witness et Refinery opérer normalement;
+- soumets le travail au merge seulement après que l'implémentation assignée est terminée, rebasée sur la branche de delivery courante, et que la vérification locale passe;
+- merge seulement quand l'étape d'intégration/review l'accepte, que les conflits sont résolus, et que le résultat est vérifié sur la branche de delivery;
+- ne ferme pas les beads/tasks source à la soumission; ferme-les seulement après merge et vérification sur la branche de delivery;
+- donne-moi une courte mise à jour "state-of-your-eyes" toutes les minutes.
+
+Chaque update doit résumer:
+- l'état livré sur la branche de delivery;
+- les convoys produit, leurs beads suivis et leur état réel de complétion;
+- les beads produit actifs, bloqués ou pending;
+- les polecats actifs et leur bead assigné;
+- le travail soumis mais non mergé;
+- la merge queue;
+- conflits/blockers/recovery;
+- les résidus de workflow séparés du travail produit;
+- toute décision nécessaire de ma part.
+
+Si des conflits répétés, agents bloqués, boucles de merge stale, ou une forte consommation de contexte/usage apparaissent, arrête les nouveaux dispatchs et passe en stabilisation: récupère le travail utile, réconcilie beads/convoys avec la branche de delivery, vérifie, et reporte honnêtement.
+
+Avant d'annoncer la complétion, vérifie directement la branche de delivery:
+- les use cases attendus sont présents;
+- les checks backend/frontend passent;
+- le travail rejeté est résolu ou explicitement différé;
+- chaque bead produit est soit vérifié sur la branche de delivery, soit explicitement encore pending;
+- chaque convoy produit est complet uniquement via ses beads produit suivis;
+- les résidus de workflow sont nommés séparément et ne sont pas comptés comme delivery produit inachevé.
+
+Arrête la boucle de feedback seulement lorsque le delivery est complet ou explicitement gelé.
+
+Le recap final doit inclure:
+- le commit final de la branche de delivery;
+- le scope produit livré;
+- les convoys produit et beads suivis;
+- l'owner du bead;
+- la branche ou l'artifact de merge;
+- le statut mergé-sur-la-branche-de-delivery;
+- la preuve de vérification;
+- l'état shipped;
+- le travail produit pending, s'il y en a;
+- les résidus de workflow, s'il y en a;
+- les risques restants.

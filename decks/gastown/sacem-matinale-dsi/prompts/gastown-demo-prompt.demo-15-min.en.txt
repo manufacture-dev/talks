@@ -1,0 +1,80 @@
+I want to implement new features in the agreement_hub application. The shared context and use cases are in the docs folder.
+
+Goal: ship a working demo within 15 minutes of this message. Time spent waiting for my explicit GO does not count.
+
+---
+## What I Want To See In The Demo
+
+Start at the functional request level: explain what you will deliver, why it matters for the demo, what results will be visible in the application, and what will be explicitly deferred to fit the duration.
+
+First, do not start implementation.
+
+Quickly read the documentation and inspect the application. Make reasonable product, UI, architecture, scope, sequencing, implementation, naming, and verification decisions yourself, following the existing patterns.
+
+Then present a short plan that includes:
+- the use cases or functional increments you will deliver;
+- at least 2 independent increments that can move in parallel;
+- a simple ASCII diagram showing the chosen increments, any dependencies, the affected areas/files, and the expected delivery path;
+- what will be visible or testable in the application for each one;
+- what is explicitly out of scope to fit the duration;
+- files or application areas that may be shared;
+- the minimum verification that will prove the demo is ready;
+- risks or decisions that truly need my input.
+
+Do not ask me to approve routine choices. Ask only for decisions that change demo scope, add an external dependency, risk data loss, significantly exceed the duration, or block delivery.
+
+After presenting the plan, wait for my explicit GO.
+
+---
+## Demo Frame
+
+These rules are independent from the orchestration tool:
+- keep scope strictly limited to what makes the demo convincing within 15 minutes;
+- avoid non-essential changes, polish, broad refactors, and real external integrations;
+- avoid parallel edits to the same files or functional areas;
+- if 8 minutes have elapsed after GO without a result close to integration, reduce scope immediately;
+- if 12 minutes have elapsed after GO, stabilize the smallest demonstrable result available and prepare the recap;
+- do not wait passively for more than one minute without useful action: check state, adjust the plan, or stabilize.
+
+---
+## What Gas Town Must Show
+
+This demo must show Gas Town orchestrating delivery, not just show a working application. For execution, use Gas Town as the mandatory delivery system.
+
+You act as Mayor / coordinator: do not code the features directly yourself, except for an explicitly justified stabilization adjustment. Product work must go through the Gas Town mechanics.
+
+When I say GO, the expected Gas Town demonstration is:
+- 2 product beads created, each tied to a demonstrable functional increment;
+- a convoy created if it helps track the 2 beads together;
+- each bead slung to a distinct Polecat;
+- each Polecat in an isolated worktree;
+- at most 1 foundation bead if a minimal technical prerequisite is required;
+- integration passed through the normal review, Witness/validation, Refinery, and merge queue steps;
+- no direct push to the main delivery branch;
+- no commit must include Gas Town or Claude runtime artifacts (`CLAUDE.md`, `.beads/`, `.runtime/`); if these files appear in a worktree, exclude them locally and recommit cleanly before submission;
+- beads closed only after integration and verification on the main delivery branch.
+
+Give a short update every 3 minutes, or immediately when blocked. Each update must clearly separate:
+- functional result already usable;
+- Gas Town state: beads, optional convoy, Polecats, review, validation, Refinery, merge queue;
+- blockers or deferred work;
+- any decision needed from me.
+
+Before announcing completion, verify that:
+- the delivered use cases work in the application;
+- the relevant minimal checks pass;
+- the result is integrated on the main delivery branch, or the gap is explicitly explained;
+- the demo mock/offline mode works without LLM access, if the application provides one;
+- delivered beads are closed or their remaining status is explicitly explained;
+- undelivered work is explicitly named as deferred.
+
+The final recap must be compact but more visual than a plain paragraph: use short tables, aligned lists, or a mini diagram if that makes the state easier to read. It must include:
+- what was completed;
+- what is demonstrable in the application;
+- visible Gas Town evidence: beads, optional convoy, Polecats, Refinery, Witness/validation, merge queue;
+- integration state on the main delivery branch;
+- verification evidence;
+- what was deferred;
+- remaining risks.
+
+After this final recap, stop demo reporting. Do not start new visible status, cleanup, or monitoring loops unless I explicitly ask for them.

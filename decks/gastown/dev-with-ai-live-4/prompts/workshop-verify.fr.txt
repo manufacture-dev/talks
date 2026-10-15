@@ -1,0 +1,17 @@
+/agent-browser Utilise l’historique Git et le code du dépôt
+pour identifier les fonctionnalités ajoutées pendant l’atelier.
+
+Ouvre http://localhost:5173 en mode visible (headed).
+Réutilise la fenêtre et l’onglet de création des contrats.
+
+Teste chaque fonctionnalité ajoutée via l’interface :
+parcours principal, validations et persistance après
+rechargement lorsque c’est pertinent.
+
+Préserve les contrats existants. Crée des données fictives
+si nécessaire, sans modifier le code ni utiliser SQL
+ou des appels directs à l’API pour tester l’application.
+
+Résume les fonctionnalités identifiées, les tests effectués,
+les résultats observés et les éventuels blocages.
+Signale clairement ce qui n’a pas pu être vérifié.

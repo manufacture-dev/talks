@@ -1,0 +1,21 @@
+In agreement_hub, read docs/use-cases/README.md and inspect the app.
+Choose exactly 2 of the 5 listed use cases, none outside the list.
+For each: a minimal slice faithful to the need, UI-testable,
+independent; adjust choices and scope for <15 min after GO.
+Plan: exact numbers and names, covered/excluded, outcomes,
+dependencies, shared files and checks.
+AI use cases (#1/#2) are eligible: mock the LLM, no external service.
+Wait for my GO. Make routine decisions yourself; ask
+for scope changes, external services or data-loss risks.
+
+After GO, coordinate without coding: product beads, convoy,
+separate Polecats and isolated worktrees. One owner per
+shared file. Integrate through Witness and Refinery,
+with no direct push to main or committed runtime artifacts.
+
+At 8 min, reduce scope if needed; at 12 min, stabilize.
+Every 3 min or when blocked: outcomes, Gas Town state,
+blockers and decisions. Continue the plan without new approval.
+Verify, then close integrated beads. Report: delivered,
+demonstrable, evidence, branch and SHA, checks, deferred and risks.
+Then stop monitoring.

@@ -1,0 +1,17 @@
+/agent-browser Use the repository’s Git history and code
+to identify the features added during the workshop.
+
+Open http://localhost:5173 in visible (headed) mode.
+Reuse the window and tab used to create the contracts.
+
+Test each added feature through the UI:
+main workflow, validation and persistence after reload
+where relevant.
+
+Preserve existing contracts. Create fictional test data
+if needed, without modifying code or using SQL
+or direct API calls to test the application.
+
+Summarize the identified features, tests performed,
+observed results and any blockers.
+Clearly state anything that could not be verified.

@@ -1,0 +1,17 @@
+/agent-browser Ouvre http://localhost:5173 en mode visible
+(headed), dans une session dédiée. Garde la même fenêtre
+et le même onglet.
+
+Inspecte l’application, puis crée 12 contrats fictifs
+réalistes via l’interface. Varie les types, entreprises,
+statuts et clauses pour couvrir différents cas.
+Utilise des titres métier naturels, sans préfixe
+ni nom de client. Garde les données cohérentes.
+
+Respecte les champs et validations de l’application.
+Ne modifie ni le code ni les contrats existants ;
+pas de SQL ni d’appel direct à l’API.
+
+Vérifie la persistance après rechargement. En cas
+d’interruption, reprends sans doublons jusqu’à 12 créations.
+Résume les contrats créés et les éventuels blocages.

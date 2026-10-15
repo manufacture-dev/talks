@@ -1,0 +1,80 @@
+Je veux implémenter de nouvelles fonctionnalités dans l'application agreement_hub. Le contexte partagé et les use cases sont dans le dossier docs.
+
+Objectif: livrer une démo fonctionnelle en moins de 15 minutes à partir de ce message. Le temps passé à attendre mon GO explicite ne compte pas.
+
+---
+## Ce que je veux voir dans la démo
+
+Reste d'abord au niveau de la demande fonctionnelle: explique ce que tu vas livrer, pourquoi c'est utile pour la démo, quels résultats seront visibles dans l'application, et ce qui sera explicitement différé pour tenir la durée.
+
+D'abord, ne commence pas l'implémentation.
+
+Lis rapidement la documentation et inspecte l'application. Choisis toi-même les décisions raisonnables de produit, UI, architecture, scope, séquencement, implémentation, nommage et vérification, en t'appuyant sur les patterns existants.
+
+Présente-moi ensuite un plan court qui contient:
+- les use cases ou incréments fonctionnels que tu vas livrer;
+- au moins 2 incréments indépendants qui peuvent avancer en parallèle;
+- un diagramme ASCII simple qui montre les incréments choisis, leurs dépendances éventuelles, les zones/fichiers concernés, et le chemin de delivery prévu;
+- ce qui sera visible ou testable dans l'application pour chacun;
+- ce qui est explicitement hors scope pour tenir la durée;
+- les fichiers ou zones de l'application qui risquent d'être partagés;
+- la vérification minimale qui prouvera que la démo est prête;
+- les risques ou décisions qui nécessitent vraiment mon arbitrage.
+
+Ne me demande pas de valider les choix routiniers. Demande seulement pour une décision qui change le scope de la démo, ajoute une dépendance externe, risque une perte de données, dépasse fortement la durée, ou bloque la livraison.
+
+Après avoir présenté le plan, attends mon GO explicite.
+
+---
+## Cadre de démo
+
+Ces règles sont indépendantes de l'outil d'orchestration:
+- garde le scope strictement limité à ce qui rend la démo convaincante en moins de 15 minutes;
+- évite les changements non indispensables, le polish, les refactors larges et les intégrations externes réelles;
+- évite les modifications parallèles des mêmes fichiers ou des mêmes zones fonctionnelles;
+- si 8 minutes sont écoulées après GO sans résultat proche de l'intégration, réduis immédiatement le scope;
+- si 12 minutes sont écoulées après GO, stabilise le plus petit résultat démontrable disponible et prépare le compte rendu;
+- n'attends pas passivement plus d'une minute sans action utile: vérifie l'état, ajuste le plan ou stabilise.
+
+---
+## Ce que Gas Town doit montrer
+
+Cette démo doit montrer Gas Town en train d'orchestrer le delivery, pas seulement montrer une application qui fonctionne. Pour l'exécution, utilise Gas Town comme système de delivery obligatoire.
+
+Tu agis comme Mayor / coordinateur: ne code pas directement les fonctionnalités toi-même, sauf ajustement de stabilisation explicitement justifié. Le travail produit doit passer par les mécaniques Gas Town.
+
+Quand je dis GO, la démonstration Gas Town attendue est:
+- 2 beads produit créés, chacun lié à un incrément fonctionnel démontrable;
+- un convoy créé si cela aide à suivre les 2 beads ensemble;
+- chaque bead slingué à un Polecat distinct;
+- chaque Polecat dans un worktree isolé;
+- au maximum 1 bead de fondation si un prérequis technique minimal est nécessaire;
+- intégration passée par les étapes normales de review, Witness/validation, Refinery et merge queue;
+- aucun push direct sur la branche principale de delivery;
+- aucun commit ne doit inclure les artefacts runtime Gas Town ou Claude (`CLAUDE.md`, `.beads/`, `.runtime/`); si ces fichiers apparaissent dans un worktree, exclue-les localement et recommitte proprement avant soumission;
+- beads fermés seulement après intégration et vérification sur la branche principale de delivery.
+
+Donne une mise à jour courte toutes les 3 minutes, ou immédiatement en cas de blocage. Chaque mise à jour doit séparer clairement:
+- résultat fonctionnel déjà utilisable;
+- état Gas Town: beads, convoy éventuel, Polecats, review, validation, Refinery, merge queue;
+- blocages ou travail différé;
+- décision nécessaire de ma part.
+
+Avant d'annoncer la fin, vérifie que:
+- les use cases livrés fonctionnent dans l'application;
+- les checks minimaux pertinents passent;
+- le résultat est intégré sur la branche principale de delivery, ou l'écart est explicitement expliqué;
+- le mode mock/offline de la démo fonctionne sans accès LLM, si l'application le prévoit;
+- les beads livrés sont fermés ou leur statut restant est explicitement expliqué;
+- le travail non livré est explicitement nommé comme différé.
+
+Le compte rendu final doit être compact mais plus visuel qu'un simple paragraphe: utilise des tableaux courts, listes alignées ou un mini schéma si cela rend l'état plus lisible. Il doit inclure:
+- ce qui a été réalisé;
+- ce qui est démontrable dans l'application;
+- les preuves Gas Town visibles: beads, convoy éventuel, Polecats, Refinery, Witness/validation, merge queue;
+- l'état d'intégration sur la branche principale de delivery;
+- la preuve de vérification;
+- ce qui a été différé;
+- les risques restants.
+
+Après ce compte rendu final, arrête le reporting de démo. Ne lance pas de nouvelles boucles de statut, de cleanup ou de monitoring visibles, sauf si je le demande explicitement.
