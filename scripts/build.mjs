@@ -116,7 +116,7 @@ function page(lang) {
     const ofYear = talks.filter((t) => t.date.startsWith(y));
     const months = [...new Set(ofYear.map((t) => t.date.slice(0, 7)))];
     return `<li class="year"><h3>${y}</h3><span>${ofYear.length} ${u.talks}</span></li>
-${months.map((m) => { return `<li class="month"><h4 class="mh" aria-label="${esc(date(`${m}-01`, { month: "long" }))}"><span aria-hidden="true">${esc(date(`${m}-01`, { month: "long" }).toLocaleUpperCase(u.locale))}</span></h4><ol>
+${months.map((m) => { return `<li class="month"><div class="mh"><h4>${esc(date(`${m}-01`, { month: "long" }))}</h4><span>${esc(u.count(ofYear.filter((t) => t.date.startsWith(m)).length))}</span></div><ol>
 ${ofYear.filter((t) => t.date.startsWith(m)).map(talkItem).join("\n")}
 </ol></li>`; }).join("\n")}`;
   }).join("\n");
@@ -181,15 +181,6 @@ ${timeline}
 <footer class="foot"><p><a href="https://manufacture.dev">manufacture.dev</a></p></footer>
 </div>
 <script>
-// each month name is scaled to fill its strip from edge to edge
-(() => {
-  const fit = () => document.querySelectorAll(".mh span").forEach((w) => {
-    w.style.fontSize = "100px";
-    w.style.fontSize = (100 * w.parentElement.clientWidth / w.getBoundingClientRect().width) + "px";
-  });
-  document.fonts.ready.then(fit);
-  addEventListener("resize", fit);
-})();
 // series carousel: arrows only when the series overflow the row, one card per step
 (() => {
   const row = document.querySelector(".seriesl"), nav = document.querySelector(".carousel-nav");
@@ -197,9 +188,10 @@ ${timeline}
   const [prev, next] = nav.querySelectorAll("button");
   const step = () => row.firstElementChild.getBoundingClientRect().width;
   const update = () => {
-    prev.disabled = row.scrollLeft <= 2;
-    next.disabled = row.scrollLeft + row.clientWidth >= row.scrollWidth - 2;
-    nav.hidden = prev.disabled && next.disabled;   // everything fits: no arrows
+    const room = row.scrollWidth - row.clientWidth;   // a few pixels of rounding do not make a carousel
+    nav.hidden = room < 16;
+    prev.disabled = row.scrollLeft <= 8;
+    next.disabled = row.scrollLeft >= room - 8;
   };
   nav.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) row.scrollBy({ left: step() * b.dataset.dir, behavior: "smooth" }); });
   row.addEventListener("scroll", update, { passive: true });
