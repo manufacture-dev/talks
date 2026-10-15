@@ -2,14 +2,27 @@
 
 Timeline of Manufacture talks, published at https://manufacture.dev/talks/ (French) and https://manufacture.dev/talks/en/ (English).
 
-This repository is an aggregator. Each deck is made in its own repository, with whatever tool suits it, and only its finished public files are copied here: the web deck, the PDF and the PowerPoint. Everything is served from manufacture.dev/talks, so a visitor never leaves the site.
+Talks given by Manufacture at conferences, meetups and in companies. Each talk can be read online, as a PDF or as a PowerPoint. The site shows them newest first, grouped in series, with the event, the date, the language and the audience (public or internal).
 
-| Series | Source | Import |
-|---|---|---|
-| Agentic workflow evaluation | manufacture-dev/agentic-workflow-evaluation-presentations (private) | `python3 offline/publish.py ../talks`, run from the source repo |
-| Gas Town | [manufacture-dev/gastown-presentations](https://github.com/manufacture-dev/gastown-presentations) | `scripts/import-gastown.sh ../gastown-presentations` |
+## Agentic workflow evaluation
 
-The Gas Town import rebuilds the talks with their QR codes and « open the presentation » links pointing at manufacture.dev/talks. The gastown-presentations site keeps its own URLs.
+Measuring what a skill or an agentic workflow really changes on a real use case, and testing the evaluator before trusting it.
+
+| Date | Event | Audience | Talk |
+|---|---|---|---|
+| 13 October 2026 | BNP Paribas COE Devops | internal | [Nos workflows agentiques s'améliorent-ils vraiment ?](https://manufacture.dev/talks/decks/agentic-workflow-evaluation/bnp-coe-devops-2026.html) |
+| 12 October 2026 | Dev With AI 2026 | public | [Nos workflows agentiques s'améliorent-ils vraiment ?](https://manufacture.dev/talks/decks/agentic-workflow-evaluation/dev-with-ai-2026.html) |
+
+## Gas Town
+
+Organizing AI-native software delivery with Gas Town, live on Agreement Hub.
+
+| Date | Event | Audience | Talk |
+|---|---|---|---|
+| 22 September 2026 | Agile En Seine & IA 2026 (workshop) | public | [Organiser le delivery logiciel AI-native avec Gas Town](https://manufacture.dev/talks/decks/gastown/agile-en-seine-2026/) |
+| 10 July 2026 | SACEM · Matinale DSI | internal | [Organiser le delivery logiciel AI-native avec Gas Town](https://manufacture.dev/talks/decks/gastown/sacem-matinale-dsi/) |
+| 12 June 2026 | Dev With AI Live #4 | public | [Organiser le delivery logiciel AI-native avec Gas Town](https://manufacture.dev/talks/decks/gastown/dev-with-ai-live-4/) |
+| 21 May 2026 | DiliTrust TechDay | internal | [Organizing AI-native software delivery with Gas Town](https://manufacture.dev/talks/decks/gastown/dilitrust-techday/) |
 
 ## Add a talk
 
