@@ -26,12 +26,11 @@ ul,ol{list-style:none;padding:0}
 .bar{display:grid;grid-template-columns:auto 1fr auto;border-bottom:var(--rule)}
 .bar>*{display:flex;align-items:center;gap:18px;padding:14px 20px;min-height:56px}
 .bar>*+*{border-left:var(--rule)}
-.brand{font:900 18px/1 var(--sans);letter-spacing:-.01em;gap:0;padding-right:20px !important}
-.brand a{position:relative;z-index:1;text-decoration:none;padding-left:10px}
+.brand{font:900 18px/1 var(--sans);letter-spacing:-.01em;gap:10px}
+.brand a{text-decoration:none}
 .brand a:hover{text-decoration:underline;text-underline-offset:4px}
-/* the animated mark: the study's wire is 30% of its frame height, so an 86px frame draws it at the old mark's 26px */
-.brand{padding-left:8px !important}
-.brand .mark{display:block;width:86px;height:86px;margin:-26px -30px -26px -30px;border:0;background:transparent;color-scheme:normal}
+/* animated mark: the SVG frame leaves room for "AI", the logo itself is 26px of its 30px height */
+.brand .mark{display:block;height:30px;width:auto;color:var(--ink)}
 .toc a{text-decoration:none}
 .toc a:hover{text-decoration:underline;text-underline-offset:4px}
 .lang{gap:0;padding:0}

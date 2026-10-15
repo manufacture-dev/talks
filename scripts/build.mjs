@@ -9,7 +9,13 @@ import { fileURLToPath } from "node:url";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = join(ROOT, "dist");
 const SITE = "https://manufacture.dev/talks/";
-const STAMP = Date.now().toString(36);   // cache-busting query on the stylesheets, new at every build
+const STAMP = Date.now().toString(36);
+// animated mark (wire study v4, SVG/SMIL export of manufacture-dev/logo), inlined so it takes the text colour;
+// decorative here, the word next to it carries the name
+const MARK = readFileSync(join(ROOT, "brand", "manufacture-mark-anime-auto.svg"), "utf8")
+  .replace(/<\?xml[^>]*>\s*/, "")
+  .replace(/<svg([^>]*?)\s*role="img"\s*aria-label="[^"]*"/, '<svg$1 class="mark" aria-hidden="true" focusable="false"')
+  .replace(/<title>[^<]*<\/title>\s*/, "");   // cache-busting query on the stylesheets, new at every build
 const data = JSON.parse(readFileSync(join(ROOT, "talks.json"), "utf8"));
 
 // every displayed word, per page language; talks.json refers to notes, audiences and formats by key
@@ -26,7 +32,7 @@ const UI = {
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "sources de la série ↗",
     mb: "Mo", kb: "Ko", switchLabel: "Langue",
     kicker: "Conférences, meetups, interventions en entreprise",
-    share: "Partager", copied: "Lien copié", copyFallback: "Copiez ce lien", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire", logo: "Logo Manufacture animé : glisser pour le faire tourner", prev: "Série précédente", next: "Série suivante",
+    share: "Partager", copied: "Lien copié", copyFallback: "Copiez ce lien", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire", prev: "Série précédente", next: "Série suivante",
   },
   en: {
     locale: "en-GB", dir: "en/", title: "Talks · Manufacture",
@@ -40,7 +46,7 @@ const UI = {
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "series sources ↗",
     mb: "MB", kb: "KB", switchLabel: "Language",
     kicker: "Conferences, meetups, in-house talks",
-    share: "Share", copied: "Link copied", copyFallback: "Copy this link", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents", logo: "Animated Manufacture logo: drag to turn it", prev: "Previous series", next: "Next series",
+    share: "Share", copied: "Link copied", copyFallback: "Copy this link", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents", prev: "Previous series", next: "Next series",
   },
 };
 const LANGS = Object.keys(UI);
@@ -156,7 +162,7 @@ ${alternates}
 <body>
 <div class="sheet">
 <header class="bar">
-  <div class="brand"><iframe class="mark" src="${up}logo/?v=fil-v4&amp;clean&amp;transparent&amp;seed=ORANGE" title="${esc(u.logo)}" loading="eager"></iframe><a href="https://manufacture.dev">Manufacture</a></div>
+  <div class="brand">${MARK}<a href="https://manufacture.dev">Manufacture</a></div>
   <nav class="toc" aria-label="${esc(u.nav)}"><a href="#series">§1 ${esc(u.seriesLabel)}</a><a href="#timeline">§2 ${esc(u.timelineLabel)}</a></nav>
   <nav class="lang" aria-label="${esc(u.switchLabel)}">${switcher}</nav>
 </header>
@@ -220,6 +226,6 @@ for (const lang of LANGS) {
   writeFileSync(join(DIST, UI[lang].dir, "index.html"), page(lang));
 }
 for (const f of ["site.css", "mark.svg"]) cpSync(join(ROOT, f), join(DIST, f));
-for (const dir of ["fonts", "decks", "downloads", "logo"]) if (existsSync(join(ROOT, dir))) cpSync(join(ROOT, dir), join(DIST, dir), { recursive: true });
+for (const dir of ["fonts", "decks", "downloads"]) if (existsSync(join(ROOT, dir))) cpSync(join(ROOT, dir), join(DIST, dir), { recursive: true });
 writeFileSync(join(DIST, ".nojekyll"), "");
 console.log(`dist/: ${talks.length} talks, ${data.series.length} series, ${LANGS.join(" + ")}`);
