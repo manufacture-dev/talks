@@ -42,15 +42,22 @@ ul,ol{list-style:none;padding:0}
 .kicker{text-transform:uppercase}
 h1 a{text-decoration:none}
 h1{font:900 clamp(96px,19vw,248px)/.86 var(--sans);letter-spacing:-.055em;margin-left:-.04em}
-.lead{padding:20px 22px 24px;font-size:17px;font-weight:500;display:flex;align-items:flex-end}
+.lead{padding:20px 22px 24px;font-size:17px;font-weight:500;display:flex;align-items:flex-end;background:var(--ink);color:var(--peach)}
 
 /* section headings: a numbered strip */
-.section{display:flex;align-items:center;gap:16px;padding:12px 20px;border-bottom:var(--rule);text-transform:uppercase;font-weight:600;font-size:14px}
+.section{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px;border-bottom:var(--rule);text-transform:uppercase;font-weight:600;font-size:14px}
+.section h2{display:flex;align-items:center;gap:16px;font:inherit}
 .section span{background:var(--ink);color:var(--orange);padding:3px 8px}
+.carousel-nav{display:flex;gap:6px}
+.carousel-nav button{width:36px;height:32px;font:600 16px/1 var(--mono);color:var(--ink);background:none;border:1px solid var(--ink);cursor:pointer}
+.carousel-nav button:hover:not(:disabled){background:var(--ink);color:var(--orange)}
+.carousel-nav button:disabled{opacity:.35;cursor:default}
 
 /* §1 series: one cell each, like the deliverable strip of the direction */
-.seriesl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));border-bottom:var(--rule)}
-.series{display:flex;flex-direction:column;gap:12px;padding:20px 22px 24px;box-shadow:inset -1px 0 0 var(--ink)}
+.seriesl{display:grid;grid-auto-flow:column;grid-auto-columns:50%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-bottom:var(--rule)}
+.seriesl::-webkit-scrollbar{display:none}
+.seriesl:focus-visible{outline-offset:-3px}
+.series{display:flex;flex-direction:column;gap:12px;padding:20px 22px 24px;box-shadow:inset -1px 0 0 var(--ink);scroll-snap-align:start}
 .series:last-child{box-shadow:none}
 .series:nth-child(even){background:var(--peach)}
 .series .label{text-transform:uppercase}
@@ -114,7 +121,7 @@ article h3{font:900 clamp(28px,3.4vw,42px)/1.02 var(--sans);letter-spacing:-.03e
   .toc{display:none}
   .hero{grid-template-columns:1fr}
   .headline{border-right:0;border-bottom:var(--rule)}
-  .series{box-shadow:inset 0 -1px 0 var(--ink)}
+  .seriesl{grid-auto-columns:86%}
   .talk{grid-template-columns:1fr}
   .talk>*+*{border-left:0;border-top:var(--rule)}
   .formats{grid-column:auto}

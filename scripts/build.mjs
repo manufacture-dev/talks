@@ -25,7 +25,7 @@ const UI = {
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "sources de la série ↗",
     mb: "Mo", kb: "Ko", switchLabel: "Langue",
     kicker: "Conférences, meetups, interventions en entreprise",
-    share: "Partager", copied: "Lien copié", copyFallback: "Copiez ce lien", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire",
+    share: "Partager", copied: "Lien copié", copyFallback: "Copiez ce lien", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire", prev: "Série précédente", next: "Série suivante",
   },
   en: {
     locale: "en-GB", dir: "en/", title: "Talks · Manufacture",
@@ -39,7 +39,7 @@ const UI = {
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "series sources ↗",
     mb: "MB", kb: "KB", switchLabel: "Language",
     kicker: "Conferences, meetups, in-house talks",
-    share: "Share", copied: "Link copied", copyFallback: "Copy this link", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents",
+    share: "Share", copied: "Link copied", copyFallback: "Copy this link", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents", prev: "Previous series", next: "Next series",
   },
 };
 const LANGS = Object.keys(UI);
@@ -160,13 +160,13 @@ ${alternates}
   <p class="lead">${esc(u.lead)}</p>
 </section>
 <section id="series" aria-labelledby="series-h">
-  <h2 id="series-h" class="section"><span>§1</span>${esc(u.seriesLabel)}</h2>
-  <ul class="seriesl">
+  <div class="section"><h2 id="series-h"><span>§1</span>${esc(u.seriesLabel)}</h2><p class="carousel-nav" hidden><button type="button" data-dir="-1" aria-label="${esc(u.prev)}">←</button><button type="button" data-dir="1" aria-label="${esc(u.next)}">→</button></p></div>
+  <ul class="seriesl" aria-roledescription="carousel" tabindex="0">
 ${seriesCards}
   </ul>
 </section>
 <section id="timeline" aria-labelledby="timeline-h">
-  <h2 id="timeline-h" class="section"><span>§2</span>${esc(u.timelineLabel)}</h2>
+  <div class="section"><h2 id="timeline-h"><span>§2</span>${esc(u.timelineLabel)}</h2></div>
   <ol class="timeline">
 ${timeline}
   </ol>
@@ -174,6 +174,22 @@ ${timeline}
 <footer class="foot"><p><a href="https://manufacture.dev">manufacture.dev</a></p></footer>
 </div>
 <script>
+// series carousel: arrows only when the series overflow the row, one card per step
+(() => {
+  const row = document.querySelector(".seriesl"), nav = document.querySelector(".carousel-nav");
+  if (!row || !nav) return;
+  const [prev, next] = nav.querySelectorAll("button");
+  const step = () => row.firstElementChild.getBoundingClientRect().width;
+  const update = () => {
+    prev.disabled = row.scrollLeft <= 2;
+    next.disabled = row.scrollLeft + row.clientWidth >= row.scrollWidth - 2;
+    nav.hidden = prev.disabled && next.disabled;   // everything fits: no arrows
+  };
+  nav.addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) row.scrollBy({ left: step() * b.dataset.dir, behavior: "smooth" }); });
+  row.addEventListener("scroll", update, { passive: true });
+  addEventListener("resize", update);
+  update();
+})();
 document.addEventListener("click", async (e) => {
   const b = e.target.closest("button[data-link]");
   if (!b) return;
