@@ -25,7 +25,7 @@ const UI = {
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "sources de la série ↗",
     mb: "Mo", kb: "Ko", switchLabel: "Langue",
     kicker: "Conférences, meetups, interventions en entreprise",
-    latestLabel: "Dernier talk", share: "Partager", copied: "Lien copié", copyFallback: "Copiez ce lien", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire",
+    share: "Partager", copied: "Lien copié", copyFallback: "Copiez ce lien", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire",
   },
   en: {
     locale: "en-GB", dir: "en/", title: "Talks · Manufacture",
@@ -39,7 +39,7 @@ const UI = {
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "series sources ↗",
     mb: "MB", kb: "KB", switchLabel: "Language",
     kicker: "Conferences, meetups, in-house talks",
-    latestLabel: "Latest talk", share: "Share", copied: "Link copied", copyFallback: "Copy this link", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents",
+    share: "Share", copied: "Link copied", copyFallback: "Copy this link", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents",
   },
 };
 const LANGS = Object.keys(UI);
@@ -129,8 +129,6 @@ ${talks.filter((t) => t.date.startsWith(y)).map(talkItem).join("\n")}`).join("\n
     ? `<span aria-current="page">${l.toUpperCase()}</span>`
     : `<a href="${up}${UI[l].dir || "./"}" hreflang="${l}" lang="${l}">${l.toUpperCase()}</a>`).join("");
   const alternates = LANGS.map((l) => `<link rel="alternate" hreflang="${l}" href="${SITE}${UI[l].dir}">`).join("\n");
-  const last = talks[0];
-  const lastWeb = last.formats.find((f) => f.kind === "web");
 
   return `<!doctype html>
 <html lang="${lang}">
@@ -152,7 +150,6 @@ ${alternates}
 <header class="bar">
   <a class="brand" href="https://manufacture.dev"><img src="${up}mark.svg" alt="" width="27" height="26">Manufacture</a>
   <nav class="toc" aria-label="${esc(u.nav)}"><a href="#series">§1 ${esc(u.seriesLabel)}</a><a href="#timeline">§2 ${esc(u.timelineLabel)}</a></nav>
-  <p class="ref">MFG-TALKS/1.0</p>
   <nav class="lang" aria-label="${esc(u.switchLabel)}">${switcher}</nav>
 </header>
 <section class="hero">
@@ -160,12 +157,6 @@ ${alternates}
     <p class="kicker">${esc(u.kicker)}</p>
     <h1>Talks.</h1>
   </div>
-  <aside class="latest" aria-label="${esc(u.latestLabel)}">
-    <p class="label">${esc(u.latestLabel)} · ${esc(date(last.date, { day: "numeric", month: "long", year: "numeric" }))}</p>
-    <p class="ev">${esc(last.event)}</p>
-    <p class="tt" lang="${last.lang}">${esc(last.title)}</p>
-    ${lastWeb ? `<a class="go" href="${esc(href(lastWeb.href))}">${esc(u.kinds.web)} <span aria-hidden="true">↘</span></a>` : ""}
-  </aside>
   <p class="lead">${esc(u.lead)}</p>
 </section>
 <section id="series" aria-labelledby="series-h">
