@@ -116,7 +116,7 @@ function page(lang) {
     const ofYear = talks.filter((t) => t.date.startsWith(y));
     const months = [...new Set(ofYear.map((t) => t.date.slice(0, 7)))];
     return `<li class="year"><h3>${y}</h3><span>${ofYear.length} ${u.talks}</span></li>
-${months.map((m) => { const n = ofYear.filter((t) => t.date.startsWith(m)).length; return `<li class="month"><div class="mh"><h4>${esc(date(`${m}-01`, { month: "long" }))}</h4><span>${esc(u.count(n))}</span></div><ol>
+${months.map((m) => { return `<li class="month"><h4 class="mh" aria-label="${esc(date(`${m}-01`, { month: "long" }))}"><span aria-hidden="true">${esc(date(`${m}-01`, { month: "long" }).toLocaleUpperCase(u.locale))}</span></h4><ol>
 ${ofYear.filter((t) => t.date.startsWith(m)).map(talkItem).join("\n")}
 </ol></li>`; }).join("\n")}`;
   }).join("\n");
@@ -181,6 +181,15 @@ ${timeline}
 <footer class="foot"><p><a href="https://manufacture.dev">manufacture.dev</a></p></footer>
 </div>
 <script>
+// each month name is scaled to fill its strip from edge to edge
+(() => {
+  const fit = () => document.querySelectorAll(".mh span").forEach((w) => {
+    w.style.fontSize = "100px";
+    w.style.fontSize = (100 * w.parentElement.clientWidth / w.getBoundingClientRect().width) + "px";
+  });
+  document.fonts.ready.then(fit);
+  addEventListener("resize", fit);
+})();
 // series carousel: arrows only when the series overflow the row, one card per step
 (() => {
   const row = document.querySelector(".seriesl"), nav = document.querySelector(".carousel-nav");

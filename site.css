@@ -73,9 +73,9 @@ h1{font:900 clamp(96px,19vw,248px)/.86 var(--sans);letter-spacing:-.055em;margin
 .year h3{font:900 28px/1 var(--sans);letter-spacing:-.02em}
 .month{border-bottom:var(--rule)}
 .month:last-child{border-bottom:0}
-.mh{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding:20px 22px 24px;border-bottom:var(--rule)}
-.mh h4{font:900 clamp(64px,10vw,136px)/.8 var(--sans);letter-spacing:-.055em;text-transform:capitalize;margin-left:-.04em}
-.mh span{font:500 13px var(--mono);letter-spacing:.04em;text-transform:uppercase;padding-bottom:4px}
+/* the month fills its strip: capitals scaled to the full width (script), trimmed to cap height and baseline */
+.mh{border-bottom:var(--rule);overflow:hidden;line-height:0}
+.mh span{display:inline-block;white-space:nowrap;font:900 11vw/.72 var(--sans);letter-spacing:-.03em;text-box:trim-both cap alphabetic;padding-left:.01em}
 .talk{display:grid;grid-template-columns:120px minmax(0,1fr) minmax(250px,300px);border-bottom:var(--rule);scroll-margin-top:16px}
 .talk:last-child{border-bottom:0}
 .talk>*{padding:20px 22px 24px}
@@ -126,8 +126,6 @@ article h3{font:900 clamp(28px,3.4vw,42px)/1.02 var(--sans);letter-spacing:-.03e
   .hero{grid-template-columns:1fr}
   .headline{border-right:0;border-bottom:var(--rule)}
   .seriesl{grid-auto-columns:86%}
-  .mh{padding:14px 16px 18px}
-  .mh h4{font-size:56px}
   .talk{grid-template-columns:1fr}
   .talk>*+*{border-left:0;border-top:var(--rule)}
   .formats{grid-column:auto}
