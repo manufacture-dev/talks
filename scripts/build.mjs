@@ -155,7 +155,7 @@ ${alternates}
 <section class="hero">
   <div class="headline">
     <p class="kicker">${esc(u.kicker)}</p>
-    <h1>Talks.</h1>
+    <h1><a href="./">Talks.</a></h1>
   </div>
   <p class="lead">${esc(u.lead)}</p>
 </section>

@@ -40,6 +40,7 @@ ul,ol{list-style:none;padding:0}
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,380px);border-bottom:var(--rule)}
 .headline{padding:24px 28px 32px;display:flex;flex-direction:column;gap:clamp(24px,6vw,72px);border-right:var(--rule)}
 .kicker{text-transform:uppercase}
+h1 a{text-decoration:none}
 h1{font:900 clamp(96px,19vw,248px)/.86 var(--sans);letter-spacing:-.055em;margin-left:-.04em}
 .lead{padding:20px 22px 24px;font-size:17px;font-weight:500;display:flex;align-items:flex-end}
 
