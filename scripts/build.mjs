@@ -25,7 +25,7 @@ const UI = {
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "sources de la série ↗",
     mb: "Mo", kb: "Ko", switchLabel: "Langue",
     kicker: "Conférences, meetups, interventions en entreprise",
-    share: "Partager", copied: "Lien copié", copyFallback: "Copiez ce lien", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire", prev: "Série précédente", next: "Série suivante",
+    share: "Partager", copied: "Lien copié", copyFallback: "Copiez ce lien", seriesLabel: "Séries", timelineLabel: "Timeline", series: "Série", formats: "Formats", talks: "talks", nav: "Sommaire", logo: "Logo Manufacture animé : glisser pour le faire tourner", prev: "Série précédente", next: "Série suivante",
   },
   en: {
     locale: "en-GB", dir: "en/", title: "Talks · Manufacture",
@@ -39,7 +39,7 @@ const UI = {
     count: (n) => `${n} talk${n > 1 ? "s" : ""}`, source: "series sources ↗",
     mb: "MB", kb: "KB", switchLabel: "Language",
     kicker: "Conferences, meetups, in-house talks",
-    share: "Share", copied: "Link copied", copyFallback: "Copy this link", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents", prev: "Previous series", next: "Next series",
+    share: "Share", copied: "Link copied", copyFallback: "Copy this link", seriesLabel: "Series", timelineLabel: "Timeline", series: "Series", formats: "Formats", talks: "talks", nav: "Contents", logo: "Animated Manufacture logo: drag to turn it", prev: "Previous series", next: "Next series",
   },
 };
 const LANGS = Object.keys(UI);
@@ -155,7 +155,7 @@ ${alternates}
 <body>
 <div class="sheet">
 <header class="bar">
-  <a class="brand" href="https://manufacture.dev"><img src="${up}mark.svg" alt="" width="27" height="26">Manufacture</a>
+  <div class="brand"><iframe class="mark" src="${up}logo/?v=fil-v4&amp;clean&amp;seed=ORANGE" title="${esc(u.logo)}" loading="eager"></iframe><a href="https://manufacture.dev">Manufacture</a></div>
   <nav class="toc" aria-label="${esc(u.nav)}"><a href="#series">§1 ${esc(u.seriesLabel)}</a><a href="#timeline">§2 ${esc(u.timelineLabel)}</a></nav>
   <nav class="lang" aria-label="${esc(u.switchLabel)}">${switcher}</nav>
 </header>
@@ -219,6 +219,6 @@ for (const lang of LANGS) {
   writeFileSync(join(DIST, UI[lang].dir, "index.html"), page(lang));
 }
 for (const f of ["site.css", "mark.svg"]) cpSync(join(ROOT, f), join(DIST, f));
-for (const dir of ["fonts", "decks", "downloads"]) if (existsSync(join(ROOT, dir))) cpSync(join(ROOT, dir), join(DIST, dir), { recursive: true });
+for (const dir of ["fonts", "decks", "downloads", "logo"]) if (existsSync(join(ROOT, dir))) cpSync(join(ROOT, dir), join(DIST, dir), { recursive: true });
 writeFileSync(join(DIST, ".nojekyll"), "");
 console.log(`dist/: ${talks.length} talks, ${data.series.length} series, ${LANGS.join(" + ")}`);
