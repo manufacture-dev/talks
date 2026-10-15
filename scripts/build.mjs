@@ -9,6 +9,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const DIST = join(ROOT, "dist");
 const SITE = "https://manufacture.dev/talks/";
+const STAMP = Date.now().toString(36);   // cache-busting query on the stylesheets, new at every build
 const data = JSON.parse(readFileSync(join(ROOT, "talks.json"), "utf8"));
 
 // every displayed word, per page language; talks.json refers to notes, audiences and formats by key
@@ -149,13 +150,13 @@ ${ofYear.filter((t) => t.date.startsWith(m)).map(talkItem).join("\n")}
 <link rel="canonical" href="${SITE}${u.dir}">
 ${alternates}
 <link rel="alternate" hreflang="x-default" href="${SITE}">
-<link rel="stylesheet" href="${up}fonts/fonts.css">
-<link rel="stylesheet" href="${up}site.css">
+<link rel="stylesheet" href="${up}fonts/fonts.css?${STAMP}">
+<link rel="stylesheet" href="${up}site.css?${STAMP}">
 </head>
 <body>
 <div class="sheet">
 <header class="bar">
-  <div class="brand"><iframe class="mark" src="${up}logo/?v=fil-v4&amp;clean&amp;seed=ORANGE" title="${esc(u.logo)}" loading="eager"></iframe><a href="https://manufacture.dev">Manufacture</a></div>
+  <div class="brand"><iframe class="mark" src="${up}logo/?v=fil-v4&amp;clean&amp;transparent&amp;seed=ORANGE" title="${esc(u.logo)}" loading="eager"></iframe><a href="https://manufacture.dev">Manufacture</a></div>
   <nav class="toc" aria-label="${esc(u.nav)}"><a href="#series">§1 ${esc(u.seriesLabel)}</a><a href="#timeline">§2 ${esc(u.timelineLabel)}</a></nav>
   <nav class="lang" aria-label="${esc(u.switchLabel)}">${switcher}</nav>
 </header>
